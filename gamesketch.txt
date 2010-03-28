@@ -1,0 +1,34 @@
+The game opens with a 2d view of the sea.  The scene must include:
+
+boat controllable
+harbour
+obstacles 
+ rocks, 
+ other boats, 
+ buoys …
+
+one independently moving object.
+
+press button 
+the storm descends. 
+Obstacles become invisible, 
+you and harbour visible 
+
+You must now be guided to the harbour.  It must be possible to move your boat with either the mouse or the keyboard cursor keys.  If the harbour is reached without collision, the game ends in success and some suitable “success” picture and text is displayed.  If you collide with anything, the game ends in failure and again some suitable message and picture is displayed.
+
+gameloop(){
+
+for each gameobject
+ gameobject.updateGraphics();
+
+
+
+}
+
+
+Gameobject.updateGraphics(){
+
+TheRenderer.draw2dSprite(thisinstanceofSprite)
+}
+
+

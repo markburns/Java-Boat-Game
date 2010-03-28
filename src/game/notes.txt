@@ -1,0 +1,116 @@
+fix accelerating turns.
+Fix mouse turning.
+Fix enemyboat.
+
+
+MouseEvent
+X,Y
+
+Calculate vector from boat.
+Split into angle and velocity.
+Calculate angular acceleration.
+Turn until facing in that direction.
+Accelerating until that speed.
+about 1/4 screen = full speed acceleration
+
+newAngle
+newSpeed
+
+find angle which is less than Math.PI
+
+e.g.
+angle 
+newAngle
+
+angular velocity = (newAngle-angle) / turnTime (in frames) about 60 i'd guess
+
+if (angle > Math.PI)
+	angle = angle-2*Math.PI
+
+tweakVelocityFactor (only one for now)
+maxSpeed
+
+velocity
+
+
+
+
+
+__________________
+| MoveBehaviour  | 
+__________________
+xVel -100 to +100
+yVel -100 to +100
+xMaxVel acts as scaling factor for velocities 
+yMaxVel
+
+go -> inc X,Y based on vel
+D -> increase x   until key off
+A -> decrease x until key off
+S -> increase y until key off
+W -> decrease y until key off
+Shift -> brake, decrease both velocities (if negative inc) stop at zero (Brake coefficient)
+
+______________________
+| Accelerate	     |
+______________________
+
+xAccel -100 to 100
+yAccel -100 to 100
+xMaxAccel
+yMaxAccel
+
+go-> inc X,Y based on vel
+D -> inc xVel  until key off
+A -> dec xVel until key off
+S -> inc yVel until key off
+W -> dec yVel until key off
+Shift -> brake, -set xAccel, yAccel = 0
+	decrease both velocities (if negative inc) stop at zero (Brake coefficient)
+
+______________________
+|damped Accelerate
+______________________
+xFriction, yFriction
+xAccelerateCoefficient
+
+move - inc X,Y based on vel, dec vel by Friction coefficient
+D -> inc xAcceleration, until key off
+A -> dec xAcceleration, until key off
+S -> inc yAcceleration, until key off
+W -> dec yAcceleration, until key off
+Shift -> brake, decrease both velocities (if negative inc) stop at zero (Brake coefficient)
+
+GameEngine{
+   Boat.Update();
+}
+
+Class MoveBehaviour
+{
+  move(c)
+  {
+    if( c.left )
+      xv-=xacc;
+    else
+    {
+      if( c.right )
+        xv+=xacc;
+    }
+  }
+}
+
+Class Boat{
+
+	public void Update()
+	{
+	 controls=Controller.getRecentControls();
+	 Location loc = moveBehaviour.move(controls);
+
+	}
+
+	private void Move()
+	{
+	movInfo = controller.getNextMoveRequest();
+	}
+}
+

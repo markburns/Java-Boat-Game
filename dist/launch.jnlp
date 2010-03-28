@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="file:/media/sda3/mrkusr/Documents/Game/dist/" href="launch.jnlp">
+    <information>
+        <title>Game</title>
+        <vendor>mark</vendor>
+        <description>Game</description>
+        <description kind="short">Game</description>
+        <homepage href=""/>
+        <offline-allowed/>
+    </information>
+    <resources>
+        <j2se version="1.6+"/>
+        <jar href="Game.jar" main="true" download="eager"/>
+        <jar href="lib/AbsoluteLayout.jar" download="eager"/>
+    </resources>
+    <application-desc main-class="game.GameWindow">
+    </application-desc>
+</jnlp>
