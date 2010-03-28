@@ -1,0 +1,13 @@
+A 2nd year university project. The brief was to make a 2D game in which you had to navigate past
+moving obstacles with a boat until you got to a goal.
+Also when you press the enter key visibility should be reduced making it harder to navigate.
+
+The reset button isn't actually working properly.
+
+Things I like about this are that you can use the cursor keys or the mouse to control the boat 
+and the parameters are editable. The mouse will just point the boat in that direction and 
+accelerate in that direction.
+
+It uses friction, acceleration and angular momentum to make a reasonable model of movement. 
+Also there is a sine wave super-imposed on the boats movement to make it look more like it is
+on the sea.
