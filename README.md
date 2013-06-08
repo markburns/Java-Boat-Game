@@ -1,7 +1,7 @@
 2D Boat Game
 ============
 
-The brief was to make a 2D game in which you had to navigate past
+2D game in which you have to navigate past
 moving obstacles with a boat until you got to a goal.
 Also when you press the enter key visibility should be reduced making it harder to navigate.
 
