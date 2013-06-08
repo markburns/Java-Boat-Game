@@ -15,10 +15,10 @@ import java.util.Iterator;
  *
  * @author mrk
  */
-public class CharacterSolidStationary extends Character
+public class Stationary extends Character
 {
     
-    public CharacterSolidStationary()
+    public Stationary()
     {
     }
     

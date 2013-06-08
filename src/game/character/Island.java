@@ -14,11 +14,11 @@ package game.character;
  *
  * @author Mark
  */
-public class CharacterIsland extends CharacterSolidStationary
+public class Island extends Stationary
 {
     
     /** Creates a new instance of CharacterIsland */
-    public CharacterIsland()
+    public Island()
     {
     }
     

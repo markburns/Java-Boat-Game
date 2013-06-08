@@ -8,7 +8,6 @@
  */
 package game.sprite;
 
-import game.Util;
 import game.movement.Location;
 import game.character.Character;
 import java.awt.*;
@@ -57,6 +56,7 @@ public class SpriteImage extends Sprite {
     }
     boolean squeezeImageIntoTransformedArea = false;
 
+    @Override
     public Graphics paint(Graphics g, Location loc) {
         Graphics2D gg = (Graphics2D) g;
 
@@ -67,43 +67,35 @@ public class SpriteImage extends Sprite {
         y = (int) loc.getY();
 
 
-        try {
-            gg.setColor(new Color(255, 0, 0, 100));
-            //gg.fill(this.getTransformedArea());
-            Rectangle2D b = getTransformedArea().getBounds2D();
-            if (squeezeImageIntoTransformedArea) {
-                gg.drawImage(
-                        img,
-                        (int) b.getX(),
-                        (int) b.getY(),
-                        (int) b.getWidth(),
-                        (int) b.getHeight(),
-                        getImageObserver());
-            } else {
-                gg.drawImage(img, getTransform(), getImageObserver());
-            }
-
-        } catch (NullPointerException ex) {
-            ex.printStackTrace();
-            setShowSprite(false);
+        gg.setColor(new Color(255, 0, 0, 100));
+        //gg.fill(this.getTransformedArea());
+        Rectangle2D b = getTransformedArea().getBounds2D();
+        if (squeezeImageIntoTransformedArea) {
+            gg.drawImage(
+                    img,
+                    (int) b.getX(),
+                    (int) b.getY(),
+                    (int) b.getWidth(),
+                    (int) b.getHeight(),
+                    getImageObserver());
+        } else {
+            gg.drawImage(img, getTransform(), getImageObserver());
         }
 
         return (Graphics) gg;
-
     }
 
     public ImageObserver getImageObserver() {
         return imageObserver;
     }
 
-    public void setTransformation(int x, int y ) {
-        Area a = Util.getBoatArea(images[0]);
+    public void setTransformation(int x, int y, Area a) {
 
         this.setUntransformedArea(a);
         this.setSqueezeImageIntoTransformedArea(false);
         AffineTransform t = new AffineTransform();
         t.setToTranslation(x, y);
-        
+
         this.setTransform(t);
         this.setUntransformedArea(a);
         this.setTransformedArea(a.createTransformedArea(t));
@@ -112,15 +104,6 @@ public class SpriteImage extends Sprite {
         this.setImageObserver(game.Renderer.getInstance());
     }
 
-    /**
-     * Creates a new instance of SpriteImage
-     *
-     *
-     *
-     *
-     * @param Image img takes a single image to act as the only frame of an
-     * animation
-     */
     public SpriteImage(Image[] images, Character owner) {
         this.owner = owner;
         this.images = images;

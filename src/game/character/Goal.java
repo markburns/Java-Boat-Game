@@ -15,7 +15,7 @@ import java.awt.*;
  *
  * @author mrk
  */
-class Goal extends CharacterSolidStationary
+class Goal extends Stationary
 {
 
     public boolean detectCollision(ArrayList<Character> data)

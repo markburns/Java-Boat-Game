@@ -8,7 +8,6 @@
  */
 package game.character;
 
-
 import game.GameEngine;
 import game.movement.Location;
 import game.movement.Movement;
@@ -17,10 +16,7 @@ import game.movement.Swaying;
 import game.Renderer;
 import game.sprite.Sprite;
 import game.sprite.Buoy;
-import game.character.Goal;
-import game.character.Harbour;
 import game.sprite.SpriteImage;
-import game.sprite.Island;
 import game.Util;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -40,7 +36,7 @@ public class Factory {
      */
     public Factory() {
     }
-    
+
     private Area createAreaFromLocations(int[] locations, GeneralPath generalPath) {
         int count = 0;
         int x;
@@ -71,23 +67,23 @@ public class Factory {
         int x = 10;
         int y = Renderer.getInstance().getHeight() - 30;
         Location location = new Location(x, y);
-        
+
         boat.setLocation(location);
 
         Image[] boatImages = new Image[2];
         boatImages[0] = Util.imageResources.get("BOAT");
         boatImages[1] = Util.imageResources.get("BOAT_EXPLODE");
-        
+
         SpriteImage boatSprite = new SpriteImage(boatImages, boat);
-        
+
         game.movement.Location l = boat.getLocation();
-        boatSprite.setTransformation(x,y);
-        
+        boatSprite.setTransformation(x, y, Util.getBoatArea(boatImages[0]));
+
 
         boat.setLocation(new Location(30, renderer.getHeight()));
 
 
-   
+
         boat.setSprite(boatSprite);
 
         boat.setControlMethod(Boat.ControlMethod.ROTATING);
@@ -108,8 +104,7 @@ public class Factory {
 
         computerBoat.setLocation(
                 Math.random() * renderer.getWidth(),
-                Math.random() * renderer.getHeight()
-                );
+                Math.random() * renderer.getHeight());
 
 
 
@@ -120,12 +115,12 @@ public class Factory {
 
         SpriteImage computerBoatSprite = new SpriteImage(boatImages, computerBoat);
         computerBoatSprite.setShowSprite(true);
-        
+
         int x = 450;
         int y = 400;
-        
+
         computerBoat.setLocation(new Location(x, y));
-        computerBoatSprite.setTransformation(x, y);
+        computerBoatSprite.setTransformation(x, y, Util.getBoatArea(boatImages[0]));
         computerBoat.setSprite(computerBoatSprite);
 
         Movement computerBoatMove = Util.angledAccelerationPresets();
@@ -166,16 +161,16 @@ public class Factory {
         return harbour;
     }
 
-    private CharacterIsland createIsland() {
+    private Island createIsland() {
 
         GameEngine ge = GameEngine.getInstance();
         Renderer renderer = Renderer.getInstance();
 
 
-        CharacterIsland island = new CharacterIsland();
+        Island island = new Island();
 
 
-        Island islandSprite = new game.sprite.Island(island);
+        game.sprite.Island islandSprite = new game.sprite.Island(island);
 
         GeneralPath generalPath = new GeneralPath();
         island.setLocation(new Location(0, 0));
@@ -317,9 +312,9 @@ public class Factory {
             case "GOAL":
                 character = createGoal();
                 break;
-       	
-	}
-	
-	return character;
+
+        }
+
+        return character;
     }
 }

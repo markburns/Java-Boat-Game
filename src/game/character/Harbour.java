@@ -17,7 +17,7 @@ import java.awt.geom.*;
  *
  * @author Mark
  */
-public class Harbour extends CharacterSolidStationary {
+public class Harbour extends Stationary {
 
     /**
      * Creates a new instance of CharacterHarbour
