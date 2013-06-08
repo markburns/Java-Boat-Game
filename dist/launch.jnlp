@@ -9,7 +9,7 @@
         <offline-allowed/>
     </information>
     <resources>
-        <j2se version="1.6+"/>
+        <j2se version="1.7+"/>
         <jar href="Game.jar" main="true" download="eager"/>
         <jar href="lib/AbsoluteLayout.jar" download="eager"/>
     </resources>
