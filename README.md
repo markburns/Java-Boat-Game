@@ -7,8 +7,11 @@ Also when you press the enter key visibility should be reduced making it harder 
 
 Run
 =======
+
+```
 ant
 java -jar "dist/Game.jar"
+```
 
 Controls
 ========
