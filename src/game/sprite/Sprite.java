@@ -1,17 +1,5 @@
-/*
- * Sprite.java
- *
- * Created on 12 November 2007, 16:23
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 package game.sprite;
 
-/**
- *
- * @author Mark
- */
 import game.movement.Location;
 import java.awt.*;
 import java.awt.geom.AffineTransform;

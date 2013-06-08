@@ -1,6 +1,5 @@
 package game.movement;
 
-import game.GameEngine;
 import game.character.Character;
 
 public class Swaying extends AngledAcceleration

@@ -1,22 +1,9 @@
-/*
- * CharacterObstacle.java
- *
- * Created on 16 November 2007, 15:30
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package game.character;
 
 
 import java.awt.geom.*;
 
 
-/**
- *
- * @author Mark
- */
 public class Obstacle extends Character
 {
     private double angMomentum=0.06;

@@ -1,11 +1,3 @@
-/*
- * CharacterComputerBoat.java
- *
- * Created on 20 November 2007, 07:39
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 package game.character;
 
 import game.movement.Location;

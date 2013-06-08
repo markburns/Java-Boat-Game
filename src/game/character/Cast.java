@@ -1,19 +1,7 @@
-/*
- * Characters.java
- *
- * Created on 04 December 2007, 15:06
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 package game.character;
 
 import java.util.*;
 
-/**
- *
- * @author Mark
- */
 public class Cast extends HashMap<String, Character> {
 
     private static Cast cast;
@@ -32,11 +20,7 @@ public class Cast extends HashMap<String, Character> {
         }
         return cast;
     }
-    
-    public Character put(String s, Character c){
-        return super.put(s, c);
-    }
-
+ 
     public boolean boatIsVulnerable() {
         return ((Boat) cast.get("Boat")).immune == false;
     }
@@ -47,7 +31,7 @@ public class Cast extends HashMap<String, Character> {
 
     public ArrayList<Character> getMovingCharacters() {
 
-        ArrayList<Character> charactersMoving = new ArrayList<Character>();
+        ArrayList<Character> charactersMoving = new ArrayList<>();
 
         charactersMoving.add(cast.get("Boat"));
         Character c;
@@ -76,7 +60,7 @@ public class Cast extends HashMap<String, Character> {
     public ArrayList<Character> getAllCharacters() {
 
 
-        ArrayList<Character> all = new ArrayList<Character>();
+        ArrayList<Character> all = new ArrayList<>();
 
         int x = 0;
         boolean finished = false;
@@ -118,7 +102,6 @@ public class Cast extends HashMap<String, Character> {
     }
 
     public ArrayList<Character> getObstacles() {
-
         ArrayList<Character> obstacles = new ArrayList<>();
         int x = 0;
         boolean finished = false;

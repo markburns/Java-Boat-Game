@@ -1,16 +1,7 @@
-/*
- * Character.java
- *
- * Created on 01 November 2007, 17:21
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 package game.character;
 
 import game.InputController;
-import game.GameEngine;
-import game.GameWindow;
+
 import game.movement.Location;
 import game.movement.Movement;
 import game.sprite.Sprite;
@@ -18,12 +9,7 @@ import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.util.ArrayList;
-import java.util.Iterator;
 
-/**
- *
- * @author m2burns
- */
 public abstract class Character {
 
     private Location myLocation;

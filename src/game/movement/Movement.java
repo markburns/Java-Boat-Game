@@ -1,22 +1,9 @@
-/*
- * Move.java
- *
- * Created on 18 November 2007, 17:54
- *
- */
 
 package game.movement;
 
-/**
- *
- * @author Mark
- */
 public class Movement
 {
     
-    /**
-     * Creates a new instance of Move
-     */
     public Movement()
     {
     }

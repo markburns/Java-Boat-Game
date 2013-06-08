@@ -1,12 +1,3 @@
-/*
- * SpriteEnemyBoat.java
- *
- * Created on 20 November 2007, 08:21
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package game.sprite;
 
 import game.movement.Location;
@@ -14,10 +5,6 @@ import game.character.Character;
 import java.awt.Color;
 import java.awt.Graphics;
 
-/**
- *
- * @author Mark
- */
 public class EnemyBoat extends Vector
 {
     

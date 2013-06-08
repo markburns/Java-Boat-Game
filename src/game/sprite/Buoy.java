@@ -1,35 +1,16 @@
-/*
- * SpriteBuoy.java
- *
- * Created on 15 November 2007, 10:43
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package game.sprite;
 
 import game.movement.Location;
 import game.character.Character;
 import java.awt.*;
-/**
- *
- * @author Mark
- */
+
 public class Buoy extends Vector
 {
     Color mainColor= new Color(20,50,24);
-    
-
-    /**
-	 * Creates a new instance of SpriteBuoy
-	 */
+ 
     public Buoy(Character owner)
     {
 	super(owner);
-	
-
-	
     }
     
     public Graphics paint(Graphics g, Location loc)

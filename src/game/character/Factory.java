@@ -1,11 +1,3 @@
-/*
- * CharacterFactoryBase.java
- *
- * Created on 05 December 2007, 10:49
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 package game.character;
 
 import game.GameEngine;
@@ -25,15 +17,8 @@ import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 
-/**
- *
- * @author Mark
- */
 public class Factory {
 
-    /**
-     * Creates a new instance of CharacterFactoryBase
-     */
     public Factory() {
     }
 

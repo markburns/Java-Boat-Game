@@ -61,6 +61,7 @@ public abstract class Moveable extends Character
         return hitEdge;
     }
 
+    @Override
     public void collide()
     {
 

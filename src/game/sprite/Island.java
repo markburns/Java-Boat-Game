@@ -1,27 +1,12 @@
-/*
- * Sprite2dObstacle.java
- *
- * Created on 15 November 2007, 10:43
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 package game.sprite;
 
 import game.movement.Location;
 import game.character.Character;
 import java.awt.*;
 
-/**
- *
- * @author Mark
- */
 public class Island extends Vector
 {
 
-	/**
-	 * Creates a new instance of Sprite2dObstacle
-	 */
 	public Island(Character owner)
 	{
 		super(owner);

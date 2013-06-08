@@ -1,18 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package game.character;
 
 import game.GameEngine;
 import java.util.*;
-import java.awt.geom.*;
-import java.awt.*;
-
-/**
- *
- * @author mrk
- */
 class Goal extends Stationary {
 
     @Override

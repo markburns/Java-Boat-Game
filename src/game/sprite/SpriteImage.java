@@ -1,11 +1,3 @@
-/*
- * Sprite2dImageRotatable.java
- *
- * Created on 18 November 2007, 20:41
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 package game.sprite;
 
 import game.movement.Location;
@@ -13,12 +5,7 @@ import game.character.Character;
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.image.ImageObserver;
-import java.util.*;
 
-/**
- *
- * @author Mark
- */
 public class SpriteImage extends Sprite {
 
     private Image[] images;

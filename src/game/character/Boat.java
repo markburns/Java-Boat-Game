@@ -1,11 +1,3 @@
-/*
- * CharacterBoat.java
- *
- * Created on 16 November 2007, 12:30
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 package game.character;
 
 import game.GameEngine;
@@ -17,10 +9,6 @@ import game.sprite.Sprite;
 import game.Util;
 import java.awt.geom.*;
 
-/**
- *
- * @author Mark
- */
 public class Boat extends Moveable {
 
     Location pivotPoint;
@@ -54,68 +42,59 @@ public class Boat extends Moveable {
         reduceEnergy();
     }
 
-    /**
-     * Creates a new instance of CharacterBoat
-     */
     public Boat() {
     }
 
     private void processMouse() {
         Point2D p = this.getController().getMouseLocation();
-        try {
 
-            Location dest = new Location(p.getX(), p.getY());
-            double x = this.getSprite().getTransformedArea().getBounds().getCenterX();
-            double y = this.getSprite().getTransformedArea().getBounds().getCenterY();
-            double dy = dest.getY() - y;
-            double dx = dest.getX() - x;
+        Location dest = new Location(p.getX(), p.getY());
+        double x = this.getSprite().getTransformedArea().getBounds().getCenterX();
+        double y = this.getSprite().getTransformedArea().getBounds().getCenterY();
+        double dy = dest.getY() - y;
+        double dx = dest.getX() - x;
 
-            double destinationAngle = Math.atan2(dy, dx);
+        double destinationAngle = Math.atan2(dy, dx);
 
-            AngledAcceleration m = (AngledAcceleration) getMoveBehaviour();
-            double angleDelta = destinationAngle - m.getAngle();
+        AngledAcceleration m = (AngledAcceleration) getMoveBehaviour();
+        double angleDelta = destinationAngle - m.getAngle();
 
-            if (Math.abs(angleDelta) > Math.PI) {
-                while (angleDelta > Math.PI) {
-                    angleDelta = angleDelta - (2 * Math.PI);
-                }
-                while (angleDelta < -Math.PI) {
-                    angleDelta = angleDelta + (2 * Math.PI);
-                }
+        if (Math.abs(angleDelta) > Math.PI) {
+            while (angleDelta > Math.PI) {
+                angleDelta = angleDelta - (2 * Math.PI);
             }
-            if (Math.abs(angleDelta) < (Math.PI / 2.0)) {
-                if ((angleDelta < Math.PI) && (angleDelta > 0)) {
-                    setLocation(m.goRight(getLocation()));
-                }
-
-                if ((angleDelta < 0) && (angleDelta > -Math.PI)) {
-                    setLocation(m.goLeft(getLocation()));
-                }
-                //accelerate
-                setLocation(m.goUp(getLocation()));
-            } else {
-                m.setVelocity(m.getVelocity() * 0.95);
-
-                if ((angleDelta > 0)) {
-
-                    setLocation(m.goRight(getLocation()));
-                }
-
-                if ((angleDelta < 0)) {
-                    setLocation(m.goLeft(getLocation()));
-                }
-
+            while (angleDelta < -Math.PI) {
+                angleDelta = angleDelta + (2 * Math.PI);
             }
-
-
-
-            setLocation(m.goUp(getLocation()));
-
-        } catch (ClassCastException ex) {
-            ex.printStackTrace();
-        } catch (NullPointerException ex) {
-            ex.printStackTrace();
         }
+        if (Math.abs(angleDelta) < (Math.PI / 2.0)) {
+            if ((angleDelta < Math.PI) && (angleDelta > 0)) {
+                setLocation(m.goRight(getLocation()));
+            }
+
+            if ((angleDelta < 0) && (angleDelta > -Math.PI)) {
+                setLocation(m.goLeft(getLocation()));
+            }
+            //accelerate
+            setLocation(m.goUp(getLocation()));
+        } else {
+            m.setVelocity(m.getVelocity() * 0.95);
+
+            if ((angleDelta > 0)) {
+
+                setLocation(m.goRight(getLocation()));
+            }
+
+            if ((angleDelta < 0)) {
+                setLocation(m.goLeft(getLocation()));
+            }
+
+        }
+
+
+
+        setLocation(m.goUp(getLocation()));
+
 
     }
 
