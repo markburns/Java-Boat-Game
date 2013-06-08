@@ -10,11 +10,7 @@
 package game.character;
 
 
-import game.character.Character;
-import java.awt.Rectangle;
 import java.awt.geom.*;
-
-import java.util.*;
 
 
 /**
@@ -36,6 +32,7 @@ public class Obstacle extends Character
 	xAngMomentum = getLocation().getX();
 	phase+=randomPhase;
     }
+    @Override
     public void update()
     {
 	
@@ -48,6 +45,7 @@ public class Obstacle extends Character
 	
     }
     
+    @Override
     public void collision()
     {
     }

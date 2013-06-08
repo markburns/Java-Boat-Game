@@ -15,7 +15,6 @@ import game.character.Factory;
 import game.character.Character;
 
 import java.util.*;
-import javax.swing.JOptionPane;
 
 /**
  * S
@@ -143,10 +142,11 @@ public class GameEngine implements Runnable {
     boolean storm = false;
 
     public void storm() {
-        ArrayList<Character> chars = this.cast.getObstacles();
-        for (Iterator i = chars.iterator(); i.hasNext();) {
-            Character c = (Character) i.next();
-            c.getSprite().setShowSprite(!c.getSprite().isSpriteShown());
+        ArrayList<Character> obstacles = GameEngine.cast.getObstacles();
+        int x = obstacles.size();
+        for (int i = 0; i < x; i++) {
+            Character o = obstacles.get(i);
+            o.getSprite().setShowSprite(!o.getSprite().isSpriteShown());
         }
 
         storm = !storm;
@@ -182,19 +182,22 @@ public class GameEngine implements Runnable {
         while (alive) {
 
             ArrayList<Character> moving = cast.getMovingCharacters();
+            ArrayList<Character> obstacles = cast.getObstacles();
 
-            for (Iterator i = cast.getObstacles().iterator(); i.hasNext();) {
-                Character c = (Character) i.next();
+            int x = obstacles.size();
+            for (int i = 0; i < x; i++) {
+                Character c = obstacles.get(i);
+
                 c.update();
                 c.detectCollision(moving);
-
             }
-
-            for (Iterator i = moving.iterator(); i.hasNext();) {
-                Character c = (Character) i.next();
+            
+            x = moving.size();
+            
+            for (int i = 0; i < x; i++) {
+                Character c = moving.get(i);
                 c.update();
                 c.detectCollision(moving);
-
             }
 
             renderer.repaint();

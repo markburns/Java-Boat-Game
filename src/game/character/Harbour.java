@@ -1,32 +1,16 @@
-/*
- * CharacterHarbour.java
- *
- * Created on 04 December 2007, 10:45
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 package game.character;
 
-import game.character.Character;
 import java.util.*;
 import java.awt.*;
 import java.awt.geom.*;
 
-/**
- *
- * @author Mark
- */
 public class Harbour extends Stationary {
-
-    /**
-     * Creates a new instance of CharacterHarbour
-     */
     public Harbour() {
     }
 
+    @Override
     public boolean detectCollision(ArrayList<Character> data) {
-        Rectangle characterBounds = null;
+        Rectangle characterBounds;
         ArrayList<Character> moving = data;
         boolean collision = false;
 

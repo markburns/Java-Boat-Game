@@ -5,7 +5,6 @@
  */
 package game;
 
-import game.character.Cast;
 import game.character.Boat;
 import game.character.Character;
 import java.awt.event.*;

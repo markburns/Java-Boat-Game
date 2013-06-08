@@ -8,7 +8,6 @@
  */
 package game.character;
 
-import game.character.Character;
 import java.util.*;
 
 /**

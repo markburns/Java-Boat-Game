@@ -77,12 +77,13 @@ public abstract class Character {
      * @return true if this Character collided with one of characters
      */
     public boolean detectCollision(ArrayList<Character> data) {
-        Rectangle characterBounds = null;
+        Rectangle characterBounds;
         ArrayList<Character> moving = data;
         boolean collision = false;
 
-        for (Iterator iter = moving.iterator(); iter.hasNext();) {
-            Character c = (Character) iter.next();
+        int length = moving.size();
+        for (int i = 0 ; i < length; i ++) {
+            Character c = moving.get(i);
             if (!c.equals(this)) {
 
                 characterBounds = c.getSprite().getTransformedArea().getBounds();

@@ -1,27 +1,14 @@
-/*
- * MoveAngledAccelerate.java
- *
- * Created on 19 November 2007, 00:46
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package game.movement;
 
-/**
- *
- * @author Mark
- */
 public class AngledAcceleration extends Movement
 {
-    private double newAngle;
     private double angularAcceleration;
     private double friction;
     private double brake;
     
     private double angularFriction;
     
+    @Override
     public Location goUp(Location location)
     {
 	this.setVelocity(getVelocity()+getAcceleration());
@@ -39,6 +26,7 @@ public class AngledAcceleration extends Movement
 	return location;
     }
     
+    @Override
     public Location goDown(Location location)
     {
 	
@@ -54,8 +42,8 @@ public class AngledAcceleration extends Movement
 	double angle = getAngle();
 	double angularVelocity= getAngularVelocity();
 	double velocity = getVelocity();
-	double xVelocity = getXVelocity();
-	double yVelocity = getYVelocity();
+	double xVelocity;
+	double yVelocity;
 	
 	angle+=angularVelocity;
 	angle = clampAngle(angle);
@@ -68,13 +56,14 @@ public class AngledAcceleration extends Movement
 	setXVelocity(xVelocity );
 	setYVelocity(yVelocity );
 	
-//	location = super.go(location);
 	return location;
     }
     
     /**decreases angular velocity
      (accelerates in an anti clockwise direction)
      */
+    @Override
+    @SuppressWarnings("empty-statement")
     public Location goLeft(Location location)
     {
 	
@@ -93,6 +82,8 @@ public class AngledAcceleration extends Movement
     /**increases angular velocity
      (accelerates in a clockwise direction)
      */
+    @Override
+    @SuppressWarnings("empty-statement")
     public Location goRight(Location location)
     {
 	
@@ -107,13 +98,12 @@ public class AngledAcceleration extends Movement
 	
     }
     
+    @Override
     public Location go(Location location)
     {
 	
 	double velocity = getVelocity();
-	double friction = getFriction();
 	double angularVelocity = getAngularVelocity();
-	double angularFriction= getAngularFriction();
 	
 	
 	if (velocity>0.0)
@@ -144,8 +134,8 @@ public class AngledAcceleration extends Movement
 	setAngularVelocity(angularVelocity);
 	
 	double angle = getAngle();
-	double xVelocity = getXVelocity();
-	double yVelocity = getYVelocity();
+	double xVelocity;
+	double yVelocity;
 	angle+=angularVelocity;
 	angle = clampAngle(angle);
 	setAngle(angle);
@@ -186,11 +176,13 @@ public class AngledAcceleration extends Movement
 	
     }
     
+    @Override
     public void setAngularAcceleration(double angularAcceleration)
     {
 	this.angularAcceleration = angularAcceleration;
     }
     
+    @Override
     public double getAngularAcceleration()
     {
 	return angularAcceleration;

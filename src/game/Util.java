@@ -25,7 +25,7 @@ import java.net.URL;
 public class Util {
 
     private static MediaTracker mt;
-    public static HashMap<String, Image> imageResources = new HashMap<String, Image>();
+    public static HashMap<String, Image> imageResources = new HashMap<>();
 
     public static Location getBoatPivotPoint(Sprite sprite) {
         return new Location(sprite.getWidth() / 4, sprite.getHeight() / 2);
@@ -67,7 +67,7 @@ public class Util {
     }
 
     public static void loadImages() {
-        URL url = null;
+        URL url;
 
         Renderer renderer = Renderer.getInstance();
 

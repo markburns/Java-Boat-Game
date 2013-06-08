@@ -22,9 +22,8 @@ import java.awt.geom.*;
  */
 public class Boat extends Moveable {
 
-    private ControlMethod controlMethod = ControlMethod.NULL;
     Location pivotPoint;
-    private int energy=100;
+    private int energy = 100;
 
     public void setEnergy(int energy) {
         this.energy = energy;
@@ -34,18 +33,10 @@ public class Boat extends Moveable {
         return energy;
     }
 
-    enum ControlMethod {
-
-        NULL,
-        ROTATING,
-        SQUARE;
-    }
-
     /**
      * Creates a new instance of CharacterBoat
      */
     public Boat() {
-
     }
 
     private void processMouse() {
@@ -169,24 +160,13 @@ public class Boat extends Moveable {
 
     }
 
-    public ControlMethod getControlMethod() {
-        return controlMethod;
-    }
-
+    @Override
     public void update() {
         InputController controller = getController();
         if (controller.keyPressEventsPending()) {
             InputController.Control pressedControl = controller.getPressedControl();
-            switch (this.controlMethod) {
-                case ROTATING:
-                    processKeyPressRotating(pressedControl);
-                    break;
-                case SQUARE:
-                    processKeyPressSquare(pressedControl);
-                case NULL:
-                default:
-                    break;
-            }
+            processKeyPressRotating(pressedControl);
+
         } else {
             setLocation(getMoveBehaviour().go(getLocation()));
         }
@@ -205,15 +185,13 @@ public class Boat extends Moveable {
         }
 
         setTransform(pivotPoint);
+
         if (checkScreenEdge()) {
             this.getMoveBehaviour().setVelocity(getMoveBehaviour().getVelocity() / 10);
         }
 
-        GameWindow.getInstance().updateControlPanel(this);
-    }
-
-    public void setControlMethod(ControlMethod controlMethod) {
-        this.controlMethod = controlMethod;
+        GameWindow.getInstance()
+                .updateControlPanel(this);
     }
 
     public void setSprite(Sprite sprite) {

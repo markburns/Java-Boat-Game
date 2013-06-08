@@ -86,7 +86,6 @@ public class Factory {
 
         boat.setSprite(boatSprite);
 
-        boat.setControlMethod(Boat.ControlMethod.ROTATING);
         Movement move = Util.getBoatMovePresets();
 
         //Add a swaying motion to the boat

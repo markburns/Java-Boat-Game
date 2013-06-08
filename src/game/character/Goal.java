@@ -6,7 +6,6 @@
 package game.character;
 
 import game.GameEngine;
-import game.character.Character;
 import java.util.*;
 import java.awt.geom.*;
 import java.awt.*;
@@ -18,6 +17,7 @@ import java.awt.*;
 class Goal extends Stationary
 {
 
+    @Override
     public boolean detectCollision(ArrayList<Character> data)
     {
 	Rectangle characterBounds = null;

@@ -97,7 +97,7 @@ public class InputController {
      */
     public void handleKeyRelease(KeyEvent evt) {
         if (heldControls.size() > 0) {
-            Control c = keyBoardMappings.get(evt.getKeyText(evt.getKeyCode()));
+            Control c = keyBoardMappings.get(KeyEvent.getKeyText(evt.getKeyCode()));
             while (heldControls.contains(c)) {
                 heldControls.remove(c);
             }
@@ -125,8 +125,8 @@ public class InputController {
     @param evt - A KeyEvent representing which key was pressed
      */
     public void handleKeyPress(KeyEvent evt) {
-        Control pressed = null;
-        String s = evt.getKeyText(evt.getKeyCode());
+        Control pressed;
+        String s = KeyEvent.getKeyText(evt.getKeyCode());
         pressed = keyBoardMappings.get(s);
         if (pressed == Control.STORM) {
             GameEngine.getInstance().storm();

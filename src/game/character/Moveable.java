@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package game.character;
 
 import game.movement.Movement;
@@ -10,10 +6,6 @@ import game.sprite.SpriteImage;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- *
- * @author mrk
- */
 public abstract class Moveable extends Character
 {
 
