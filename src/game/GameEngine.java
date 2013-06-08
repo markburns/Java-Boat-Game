@@ -21,6 +21,10 @@ public class GameEngine implements Runnable {
     private static GameEngine gameEngine;
     boolean alive = false;
 
+    
+    public static Character getCharacter(String type){
+        return GameEngine.getInstance().getCharacters().get("Boat");
+    }
     private GameEngine() {
         cast = game.character.Cast.getInstance();
         renderer = Renderer.getInstance();

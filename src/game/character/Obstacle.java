@@ -46,7 +46,7 @@ public class Obstacle extends Character
     }
     
     @Override
-    public void collision()
+    public void collide()
     {
     }
     

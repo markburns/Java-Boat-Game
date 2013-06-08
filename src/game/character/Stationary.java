@@ -8,7 +8,7 @@ public class Stationary extends Character
     }
     
     @Override
-    public void collision()
+    public void collide()
     {
     }
     

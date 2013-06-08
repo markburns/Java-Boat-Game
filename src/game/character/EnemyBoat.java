@@ -84,7 +84,7 @@ public class EnemyBoat extends Moveable
 
 
     @Override
-    public void collision()
+    public void collide()
     {
         Movement m = getMoveBehaviour();
 //		m.setAngle(Math.random() + m.getAngle());
@@ -110,6 +110,5 @@ public class EnemyBoat extends Moveable
         {
             setLocation(m.goUp(getLocation()));
         }
-    //	getMoveBehaviour().setVelocity(Math.random()/2);
     }
 }

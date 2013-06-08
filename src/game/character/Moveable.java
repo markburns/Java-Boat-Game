@@ -61,7 +61,7 @@ public abstract class Moveable extends Character
         return hitEdge;
     }
 
-    public void collision()
+    public void collide()
     {
 
 

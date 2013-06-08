@@ -85,6 +85,10 @@ public abstract class Sprite
 	return transformedArea;
     }
     
+    public Rectangle getBounds(){
+        return transformedArea.getBounds();
+    }
+    
     public void setTransformedArea(Area area)
     {
 	this.transformedArea = area;

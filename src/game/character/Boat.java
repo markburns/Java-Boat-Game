@@ -8,6 +8,7 @@
  */
 package game.character;
 
+import game.GameEngine;
 import game.InputController;
 import game.GameWindow;
 import game.movement.Location;
@@ -31,6 +32,26 @@ public class Boat extends Moveable {
 
     public int getEnergy() {
         return energy;
+    }
+
+    private void reduceEnergy() {
+        int e = getEnergy();
+        e--;
+
+        setEnergy(e);
+
+        if (e <= 0) {
+
+            GameEngine.getInstance().gameOver();
+        } else {
+
+            GameWindow.getInstance().setEnergyBarLevel(e);
+        }
+
+    }
+
+    public void collision(Character c) {
+        reduceEnergy();
     }
 
     /**

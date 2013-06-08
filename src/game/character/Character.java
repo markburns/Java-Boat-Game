@@ -31,7 +31,7 @@ public abstract class Character {
     private Sprite sprite;
     private InputController controller = InputController.getInstance();
 
-    public abstract void collision();
+    public abstract void collide();
 
     public Location getLocation() {
         return myLocation;
@@ -71,6 +71,30 @@ public abstract class Character {
 
     public abstract void update();
 
+    public Rectangle getBounds() {
+        return sprite.getBounds();
+    }
+
+    public boolean collides(Character c) {
+        if (c.equals(this)) {
+            return false;
+        }
+
+        Area intersectArea = new Area(getTransformedArea());
+        Area b = c.getTransformedArea();
+
+        intersectArea.intersect(b);
+
+        return !intersectArea.isEmpty();
+    }
+
+    public Area getTransformedArea() {
+        return sprite.getTransformedArea();
+    }
+
+    public void collide(Character c) {
+    }
+
     /**
      *
      * @param data an ArrayList<CharacterBase> used to check for collisions
@@ -82,37 +106,11 @@ public abstract class Character {
         boolean collision = false;
 
         int length = moving.size();
-        for (int i = 0 ; i < length; i ++) {
+        for (int i = 0; i < length; i++) {
             Character c = moving.get(i);
-            if (!c.equals(this)) {
 
-                characterBounds = c.getSprite().getTransformedArea().getBounds();
-                if (characterBounds.intersects(getSprite().getTransformedArea().getBounds())) {
-                    Area intersectArea = new Area(getSprite().getTransformedArea());
-                    Area b = c.getSprite().getTransformedArea();
-                    intersectArea.intersect(b);
-                    collision = !intersectArea.isEmpty();
-                    if (collision) {
-                        Character boat = GameEngine.getInstance().getCharacters().get("Boat");
-
-                        if (c.equals(boat)) {
-                            int e = ((Boat) boat).getEnergy();
-                            e--;
-                            ((Boat) boat).setEnergy(e);
-
-                            if (e <= 0) {
-
-                                GameEngine.getInstance().gameOver();
-                            } else {
-
-                                GameWindow.getInstance().setEnergyBarLevel(e);
-                            }
-
-                        }
-                        c.collision();
-
-                    }
-                }
+            if (collision = collides(c)) {              
+                c.collide();
             }
         }
 
@@ -141,9 +139,6 @@ public abstract class Character {
      */
     public Character() {
         myLocation = new Location(0.0, 0.0);
-
-
-
     }
 
     public Movement getMoveBehaviour() {
