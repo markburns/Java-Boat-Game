@@ -1,22 +1,9 @@
-/*
- * MoveRandom.java
- *
- * Created on 20 November 2007, 07:47
- */
 
 package game.movement;
 
-/**
- *
- * @author Mark
- */
 public class Random extends AngledAcceleration
 {
     
-    /**
-     Creates a new instance of MoveRandom, this is used
-     as a decorator
-    */
     public Random(AngledAcceleration move)
     {
 	this.move = move;
@@ -25,7 +12,7 @@ public class Random extends AngledAcceleration
     int framesBetweenTurns=200;
     int frames;
 
-    private double swaySizeVertical;
+    @Override
     public Location go(Location location)
     {
 	double angle = getAngle();

@@ -1,9 +1,3 @@
-/*
- * ControlPanel.java
- *
- * Created on 22 November 2007, 13:03
- */
-
 package game;
 
 import game.movement.AngledAcceleration;
@@ -11,10 +5,6 @@ import game.character.Boat;
 import game.character.Character;
 
 
-/**
- *
- * @author  Mark
- */
 public class ControlPanel extends javax.swing.JPanel
 {
     

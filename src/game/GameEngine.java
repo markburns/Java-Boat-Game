@@ -1,11 +1,3 @@
-/*
- * GameEngine.java
- *
- * Created on 13 November 2007, 17:08
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 package game;
 
 import game.character.Cast;
@@ -16,11 +8,6 @@ import game.character.Character;
 
 import java.util.*;
 
-/**
- * S
- *
- * @author Mark
- */
 public class GameEngine implements Runnable {
 
     private static Cast cast = game.character.Cast.getInstance();
@@ -34,9 +21,6 @@ public class GameEngine implements Runnable {
     private static GameEngine gameEngine;
     boolean alive = false;
 
-    /**
-     * Creates a new instance of GameEngine
-     */
     private GameEngine() {
         cast = game.character.Cast.getInstance();
         renderer = Renderer.getInstance();

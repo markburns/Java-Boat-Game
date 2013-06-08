@@ -1,18 +1,9 @@
-/*
- * GameWindow.java
- *
- * Created on 18 November 2007, 09:56
- */
 package game;
 
 import game.character.Boat;
 import game.character.Character;
 import java.awt.event.*;
 
-/**
- *
- * @author  Mark
- */
 public class GameWindow extends javax.swing.JFrame {
 
     private GameEngine gameEngine;

@@ -194,6 +194,7 @@ public class Boat extends Moveable {
                 .updateControlPanel(this);
     }
 
+    @Override
     public void setSprite(Sprite sprite) {
         super.setSprite(sprite);
         pivotPoint = Util.getBoatPivotPoint(sprite);

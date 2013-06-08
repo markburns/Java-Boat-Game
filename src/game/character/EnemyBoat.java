@@ -29,6 +29,7 @@ public class EnemyBoat extends Moveable
     boolean changeDirection = false;
     int i;
 
+    @Override
     public void update()
     {
         if (changeDirection)

@@ -1,21 +1,9 @@
-/*
- * Controller.java
- *
- * Created on 16 November 2007, 11:19
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 package game;
 
 import java.awt.event.*;
 import java.util.*;
 import java.awt.geom.*;
 
-/**
- *
- * @author Mark
- */
 public class InputController {
 
     static private InputController controller;

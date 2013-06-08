@@ -1,18 +1,6 @@
-/*
- * Location.java
- *
- * Created on 12 November 2007, 20:11
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 
 package game.movement;
 
-/**
- *
- * @author Mark
- */
 public class Location
 {
 
@@ -35,7 +23,8 @@ public class Location
 	this.y=(double)y;
 	
     }
-public String toString(){
+    @Override
+    public String toString(){
     return (String)("x:"+String.valueOf(x)+" y:"+String.valueOf(y));
 }
     public double getX()

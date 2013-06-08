@@ -1,9 +1,3 @@
-/*
- * DrawingJPanel.java
- *
- * Created on 01 November 2007, 16:03
- */
-
 package game;
 
 import game.movement.Location;
@@ -16,10 +10,6 @@ import java.util.*;
 import javax.swing.*;
 
 
-/**
- *
- * @author  m2burns
- */
 public class Renderer extends JPanel
 {
     
@@ -30,6 +20,9 @@ public class Renderer extends JPanel
     {
 	this.background = background;
     }
+    
+    public static int width(){return getInstance().getWidth();}
+    public static int height(){return getInstance().getHeight();}
     
     public Image getBackgroundImage()
     {

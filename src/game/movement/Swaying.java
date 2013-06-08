@@ -1,26 +1,10 @@
-/*
- * MoveSwaying.java
- *
- * Created on 04 December 2007, 10:59
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 package game.movement;
 
 import game.GameEngine;
 import game.character.Character;
 
-/**
- *
- * @author Mark
- */
 public class Swaying extends AngledAcceleration
 {
-    
-    /**
-     * Creates a new instance of MoveSwaying
-     */
     public Swaying(AngledAcceleration move, double x, double y, double pRandomPhase, Character owner,
 	    double swayH, double swayV)
     {
@@ -59,7 +43,7 @@ public class Swaying extends AngledAcceleration
     @Override
     public Location go(Location location)
     {
-	xOffset = Math.sin(phase + (Math.PI * location.getX() / (2 * GameEngine.getInstance().renderer.getWidth())));
+	xOffset = Math.sin(phase + (Math.PI * location.getX() / (2 * game.Renderer.width())));
 	
 	yOffset = 0.5 * Math.sin(phase);//+Math.abs(xOffset);
 	
