@@ -5,35 +5,10 @@
  */
 package game;
 
-import java.awt.Color;
-import java.awt.Composite;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Paint;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.RenderingHints.Key;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.Toolkit;
+import game.character.Cast;
+import game.character.CharacterBoat;
+import game.character.Character;
 import java.awt.event.*;
-import java.awt.font.FontRenderContext;
-import java.awt.font.GlyphVector;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
-import java.awt.image.ImageObserver;
-import java.awt.image.RenderedImage;
-import java.awt.image.renderable.RenderableImage;
-import java.text.AttributedCharacterIterator;
-import java.util.Map;
-import javax.swing.*;
-import javax.swing.event.*;
 
 /**
  *
@@ -42,39 +17,30 @@ import javax.swing.event.*;
 public class GameWindow extends javax.swing.JFrame {
 
     private GameEngine gameEngine;
-    private static GameWindow singleton;
-    Thread tGameEngine;
+    private static GameWindow window;
+    Thread thread;
 
     public GameWindow() {
-
-        synchronized (GameWindow.class) {
-            singleton = this;
-        }
         initComponents();
-    //myInitialization();
-
     }
-
+    
+    public void updateControlPanel(CharacterBoat b){
+        this.controlPanel.updateControlPanel(b);
+    }
+    
     public static GameWindow getInstance() {
-        if (singleton != null) {
-            return singleton;
+        if (window != null) {
+            return window;
 
         } else {
             synchronized (GameWindow.class) {
-                if (singleton == null) {
-                    singleton = new GameWindow();
+                if (window == null) {
+                    window = new GameWindow();
                 }
             }
 
         }
-        return singleton;
-    }
-
-    public void myInitialization() {
-
-        renderer = Renderer.getInstance();
-
-
+        return window;
     }
 
     /** This method is called from within the constructor to
@@ -89,7 +55,6 @@ public class GameWindow extends javax.swing.JFrame {
         controlPanel = new game.ControlPanel();
         renderer = new game.Renderer();
         jBtnGo = new javax.swing.JButton();
-        jBtnReset = new javax.swing.JButton();
         jBtnStorm = new javax.swing.JButton();
         jPrgEnergy = new javax.swing.JProgressBar();
         jLabel1 = new javax.swing.JLabel();
@@ -151,15 +116,6 @@ public class GameWindow extends javax.swing.JFrame {
         });
         jPnlGame.add(jBtnGo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, -1, 30));
 
-        jBtnReset.setText("Reset");
-        jBtnReset.setEnabled(false);
-        jBtnReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnResetActionPerformed(evt);
-            }
-        });
-        jPnlGame.add(jBtnReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, -1, 30));
-
         jBtnStorm.setText("Storm");
         jBtnStorm.setEnabled(false);
         jBtnStorm.addActionListener(new java.awt.event.ActionListener() {
@@ -167,7 +123,7 @@ public class GameWindow extends javax.swing.JFrame {
                 jBtnStormActionPerformed(evt);
             }
         });
-        jPnlGame.add(jBtnStorm, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, -1, 30));
+        jPnlGame.add(jBtnStorm, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, -1, 30));
 
         jPrgEnergy.setValue(100);
         jPnlGame.add(jPrgEnergy, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 280, -1));
@@ -183,17 +139,12 @@ public class GameWindow extends javax.swing.JFrame {
     {//GEN-HEADEREND:event_jBtnStormActionPerformed
 
 
-        Controller.getInstance().triggerStorm();
+        InputController.getInstance().triggerStorm();
 }//GEN-LAST:event_jBtnStormActionPerformed
-
-    private void jBtnResetActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnResetActionPerformed
-    {//GEN-HEADEREND:event_jBtnResetActionPerformed
-        resetGame();	
-    }//GEN-LAST:event_jBtnResetActionPerformed
 
     private void rendererMouseDragged(java.awt.event.MouseEvent evt)//GEN-FIRST:event_rendererMouseDragged
     {//GEN-HEADEREND:event_rendererMouseDragged
-        Controller c = Controller.getInstance();
+        InputController c = InputController.getInstance();
         c.handleMouseMove(evt);
     // TODO add your handling code here:
     }//GEN-LAST:event_rendererMouseDragged
@@ -201,14 +152,14 @@ public class GameWindow extends javax.swing.JFrame {
     private void rendererKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_rendererKeyReleased
     {//GEN-HEADEREND:event_rendererKeyReleased
 
-        Controller c = Controller.getInstance();
+        InputController c = InputController.getInstance();
         c.handleKeyRelease(evt);
     }//GEN-LAST:event_rendererKeyReleased
 
     private void rendererKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_rendererKeyPressed
     {//GEN-HEADEREND:event_rendererKeyPressed
 
-        Controller c = Controller.getInstance();
+        InputController c = InputController.getInstance();
         c.handleKeyPress(evt);
     }//GEN-LAST:event_rendererKeyPressed
 
@@ -221,50 +172,10 @@ public class GameWindow extends javax.swing.JFrame {
     public void startGame(){
 
         renderer.requestFocusInWindow();
-        singleton.go();
-        this.jBtnReset.setEnabled(true);
+        getInstance().go();
         this.jBtnStorm.setEnabled(true);        
     }
-    private void resetGame() {
-
-
-        
-        Renderer.reset();
-        renderer = Renderer.getInstance();
-
-        //reset old game engine
-        GameEngine.reset();
-        gameEngine = null;
-
-        
-
-        //reset the controller data
-        Controller.reset();
-
-        //reset characters
-        CharactersHash.reset();
-
-        
-        //create a new game engine
-        gameEngine = GameEngine.getInstance();
-        gameEngine.initialize(renderer);
-        gameEngine.setAlive(true);
-
-        /*tGameEngine = null;
-        tGameEngine = new Thread(gameEngine);
-        tGameEngine.setName("GameEngineThread");
-        tGameEngine.start();
-         * */
-       singleton=null;
-        synchronized (GameWindow.class) {
-            singleton = this;
-        }
-        initComponents();
-
-            startGame();
-
-    }
-
+    
     public void setEnergyBarLevel(int e){
         this.jPrgEnergy.setValue(e);
     }
@@ -273,26 +184,26 @@ public class GameWindow extends javax.swing.JFrame {
     {//GEN-HEADEREND:event_rendererMousePressed
         renderer.requestFocusInWindow();
 
-        Controller c = Controller.getInstance();
+        InputController c = InputController.getInstance();
         c.handleMouseClick(evt);
     }//GEN-LAST:event_rendererMousePressed
 
     private void rendererMouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_rendererMouseReleased
     {//GEN-HEADEREND:event_rendererMouseReleased
-        Controller.getInstance().handleMouseReleased(evt);
+        InputController.getInstance().handleMouseReleased(evt);
 	
     }//GEN-LAST:event_rendererMouseReleased
 
     private void rendererMouseEntered(java.awt.event.MouseEvent evt)//GEN-FIRST:event_rendererMouseEntered
     {//GEN-HEADEREND:event_rendererMouseEntered
         this.requestFocusInWindow();
-        Controller c = Controller.getInstance();
+        InputController c = InputController.getInstance();
         c.handleMouseMove(evt);
     }//GEN-LAST:event_rendererMouseEntered
 
     private void rendererMouseMoved(java.awt.event.MouseEvent evt)//GEN-FIRST:event_rendererMouseMoved
     {//GEN-HEADEREND:event_rendererMouseMoved
-        Controller c = Controller.getInstance();
+        InputController c = InputController.getInstance();
         c.handleMouseMove(evt);
 	
 	
@@ -304,27 +215,24 @@ public class GameWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_rendererMouseClicked
 
     private void formKeyReleased(KeyEvent evt) {
-        Controller.getInstance().handleKeyRelease(evt);
+        InputController.getInstance().handleKeyRelease(evt);
     }
 
     private void formKeyPressed(KeyEvent evt) {
-        Controller.getInstance().handleKeyPress(evt);
+        InputController.getInstance().handleKeyPress(evt);
 
     }
 
-    public void btnResetMouseClicked(MouseEvent evt) {
-
-    }
 
     public void go() {
 
         gameEngine = GameEngine.getInstance();
-        gameEngine.initialize(renderer);
+        gameEngine.initialize();
         gameEngine.setAlive(true);
 
-        tGameEngine = new Thread(gameEngine);
-        tGameEngine.setName("GameEngineThread");
-        tGameEngine.start();
+        thread = new Thread(gameEngine);
+        thread.setName("GameEngineThread");
+        thread.start();
 
     }
 
@@ -342,17 +250,13 @@ public class GameWindow extends javax.swing.JFrame {
         });
     }
 
-    void initializeControlPanel(CharacterBase characterBoat) {
+    void initializeControlPanel(Character characterBoat) {
         this.controlPanel.initializeControlPanel(characterBoat);
     }
 
-    void updateControlPanel(CharacterBoat characterBoat) {
-        this.controlPanel.updateControlPanel(characterBoat);
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private game.ControlPanel controlPanel;
     private javax.swing.JButton jBtnGo;
-    private javax.swing.JButton jBtnReset;
     private javax.swing.JButton jBtnStorm;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPnlGame;

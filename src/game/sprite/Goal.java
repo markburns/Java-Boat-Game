@@ -3,8 +3,11 @@
  * and open the template in the editor.
  */
 
-package game;
+package game.sprite;
 
+import game.movement.Location;
+import game.Renderer;
+import game.character.Character;
 import java.awt.*;
 
 
@@ -12,7 +15,7 @@ import java.awt.*;
  *
  * @author mrk
  */
-public class SpriteGoal extends SpriteVector{
+public class Goal extends Vector{
 	Renderer renderer = Renderer.getInstance();
 	@Override
 	public Graphics paint(Graphics g, Location loc)
@@ -32,7 +35,7 @@ public class SpriteGoal extends SpriteVector{
 		return gg;
 	}
  /** Creates a new instance of Sprite2d */
-    public SpriteGoal(CharacterBase owner)
+    public Goal(Character owner)
     {
 			super(owner);//Used by the GameEngine to determine which character owns this sprite
 	

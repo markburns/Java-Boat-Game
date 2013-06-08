@@ -6,12 +6,13 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-package game;
+package game.sprite;
 
 /**
  *
  * @author Mark
  */
+import game.movement.Location;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;

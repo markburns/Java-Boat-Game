@@ -16,18 +16,18 @@ import java.awt.geom.*;
  *
  * @author Mark
  */
-public class Controller {
+public class InputController {
 
-    static private Controller singleton;
-    private HashMap<String, Control> keyBoardMappings = new HashMap<String, Control>();
-    private java.util.List<Control> pressedControls = new java.util.LinkedList<Control>();
-    private java.util.List<Control> heldControls = new java.util.LinkedList<Control>();
+    static private InputController controller;
+    private HashMap<String, Control> keyBoardMappings = new HashMap<>();
+    private java.util.List<Control> pressedControls = new java.util.LinkedList<>();
+    private java.util.List<Control> heldControls = new java.util.LinkedList<>();
     private Point2D mouseLocation = new Point2D.Double(0.0, 0.0);
     private boolean blnMouseHeld = false;
     private boolean blnHasMouseMoved = false;
 
     /** Creates a new instance of Controller */
-    private Controller() {
+    private InputController() {
         keyBoardMappings.put("w", Control.UP);
         keyBoardMappings.put("W", Control.UP);
         keyBoardMappings.put("s", Control.DOWN);
@@ -50,14 +50,14 @@ public class Controller {
     }
 
     public static void reset() {
-        singleton = null;
+        controller = null;
     }
 
-    public static Controller getInstance() {
-        if (singleton == null) {
-            singleton = new Controller();
+    public static InputController getInstance() {
+        if (controller == null) {
+            controller = new InputController();
         }
-        return singleton;
+        return controller;
     }
 
     public enum Control {

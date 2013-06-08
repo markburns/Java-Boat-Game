@@ -7,30 +7,31 @@
  * and open the template in the editor.
  */
 
-package game;
+package game.sprite;
+import game.character.Character;
 import java.awt.*;
 
 /**
  *
  * @author Mark
  */
-public abstract class SpriteVector extends Sprite
+public abstract class Vector extends Sprite
 {
     
  
-    private CharacterBase owner;
+    private Character owner;
 
  
   
      
     
-    public CharacterBase getOwner()
+    public Character getOwner()
     {
 	return owner;
     }
     
     /** Creates a new instance of Sprite2d */
-    public SpriteVector(CharacterBase owner)
+    public Vector(Character owner)
     {
 	this.owner = owner;//Used by the GameEngine to determine which character owns this sprite
 	

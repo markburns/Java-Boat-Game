@@ -7,9 +7,10 @@
  * and open the template in the editor.
  */
 
-package game;
+package game.character;
 
 
+import game.character.Character;
 import java.awt.Rectangle;
 import java.awt.geom.*;
 
@@ -20,7 +21,7 @@ import java.util.*;
  *
  * @author Mark
  */
-public class CharacterObstacle extends CharacterBase
+public class CharacterObstacle extends Character
 {
     private double angMomentum=0.06;
     private double xAngMomentum;

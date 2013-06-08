@@ -4,24 +4,24 @@
  * Created on 20 November 2007, 07:47
  */
 
-package game;
+package game.movement;
 
 /**
  *
  * @author Mark
  */
-public class MoveRandom extends MoveAngledAccelerate
+public class Random extends AngledAcceleration
 {
     
     /**
      Creates a new instance of MoveRandom, this is used
      as a decorator
     */
-    public MoveRandom(MoveAngledAccelerate move)
+    public Random(AngledAcceleration move)
     {
 	this.move = move;
     }
-    MoveAngledAccelerate move;
+    AngledAcceleration move;
     int framesBetweenTurns=200;
     int frames;
 

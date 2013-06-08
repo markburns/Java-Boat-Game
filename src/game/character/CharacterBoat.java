@@ -6,17 +6,21 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-package game;
+package game.character;
 
-import java.awt.event.*;
+import game.InputController;
+import game.GameWindow;
+import game.movement.Location;
+import game.movement.AngledAcceleration;
+import game.sprite.Sprite;
+import game.Util;
 import java.awt.geom.*;
-import java.util.*;
 
 /**
  *
  * @author Mark
  */
-public class CharacterBoat extends CharacterBoatBase {
+public class CharacterBoat extends CharacterMoveable {
 
     private ControlMethod controlMethod = ControlMethod.NULL;
     Location pivotPoint;
@@ -56,7 +60,7 @@ public class CharacterBoat extends CharacterBoatBase {
 
             double destinationAngle = Math.atan2(dy, dx);
 
-            MoveAngledAccelerate m = (MoveAngledAccelerate) getMoveBehaviour();
+            AngledAcceleration m = (AngledAcceleration) getMoveBehaviour();
             double angleDelta = destinationAngle - m.getAngle();
 
             if (Math.abs(angleDelta) > Math.PI) {
@@ -103,7 +107,7 @@ public class CharacterBoat extends CharacterBoatBase {
 
     }
 
-    private void processKeyPressSquare(Controller.Control keypress) {
+    private void processKeyPressSquare(InputController.Control keypress) {
         switch (keypress) {
             case UP:
                 setLocation(getMoveBehaviour().goUp(getLocation()));
@@ -134,7 +138,7 @@ public class CharacterBoat extends CharacterBoatBase {
 
     }
 
-    private void processKeyPressRotating(Controller.Control keypress) {
+    private void processKeyPressRotating(InputController.Control keypress) {
 
         switch (keypress) {
             case UP:
@@ -170,9 +174,9 @@ public class CharacterBoat extends CharacterBoatBase {
     }
 
     public void update() {
-        Controller controller = getController();
+        InputController controller = getController();
         if (controller.keyPressEventsPending()) {
-            Controller.Control pressedControl = controller.getPressedControl();
+            InputController.Control pressedControl = controller.getPressedControl();
             switch (this.controlMethod) {
                 case ROTATING:
                     processKeyPressRotating(pressedControl);
@@ -190,7 +194,7 @@ public class CharacterBoat extends CharacterBoatBase {
         if (controller.keyHeldEventsPending()) {
             int count = 0;
             while (count <= controller.getNumberOfHeldControls()) {
-                Controller.Control c = controller.getHeldControl(count);
+                InputController.Control c = controller.getHeldControl(count);
                 processKeyPressRotating(c);
                 count++;
             }

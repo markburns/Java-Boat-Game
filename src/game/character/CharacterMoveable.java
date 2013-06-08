@@ -2,12 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package game;
+package game.character;
 
-import java.awt.Rectangle;
-import java.awt.geom.Area;
-import java.util.ArrayList;
-import java.util.Iterator;
+import game.movement.Movement;
+import game.Renderer;
+import game.sprite.SpriteImage;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -15,13 +14,14 @@ import java.util.TimerTask;
  *
  * @author mrk
  */
-public abstract class CharacterBoatBase extends CharacterBase
+public abstract class CharacterMoveable extends Character
 {
 
     protected boolean immune = false;
     Renderer renderer = Renderer.getInstance();
 
-    public CharacterBoatBase()
+    
+    public CharacterMoveable()
     {
     }
 
@@ -78,7 +78,7 @@ public abstract class CharacterBoatBase extends CharacterBase
             SpriteImage s = (SpriteImage) getSprite();
             s.setFrame(1);
             immune = true;
-            Move mb = getMoveBehaviour();
+            Movement mb = getMoveBehaviour();
             //getMoveBehaviour().angle+=(Math.random()-0.5);
             mb.setAngularVelocity(mb.getAngularVelocity() + (Math.random() - 0.5) * 0.4);
             mb.setAngle(mb.getAngle() + (Math.random() - 0.5) * 0.1);

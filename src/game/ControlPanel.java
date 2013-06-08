@@ -6,6 +6,10 @@
 
 package game;
 
+import game.movement.AngledAcceleration;
+import game.character.CharacterBoat;
+import game.character.Character;
+
 
 /**
  *
@@ -909,7 +913,7 @@ public class ControlPanel extends javax.swing.JPanel
     private void sldFrictionChange()
     {
 	GameEngine ge = GameEngine.getInstance();
-	MoveAngledAccelerate mb = (MoveAngledAccelerate)ge.getCharacters().get("Boat").getMoveBehaviour();
+	AngledAcceleration mb = (AngledAcceleration)ge.getCharacters().get("Boat").getMoveBehaviour();
 	mb.setFriction((this.sldFriction.getValue()*(this.frictionScale/this.SLIDER_MAXIMUM)));
 	
 	
@@ -918,7 +922,7 @@ public class ControlPanel extends javax.swing.JPanel
     private void sldBrakeChange()
     {
 	GameEngine ge = GameEngine.getInstance();
-	MoveAngledAccelerate mb = (MoveAngledAccelerate)ge.getCharacters().get("Boat").getMoveBehaviour();
+	AngledAcceleration mb = (AngledAcceleration)ge.getCharacters().get("Boat").getMoveBehaviour();
 	mb.setBrake(this.sldBrake.getValue()*(this.brakeScale/this.SLIDER_MAXIMUM));
 	
     }
@@ -926,7 +930,7 @@ public class ControlPanel extends javax.swing.JPanel
     private void sldAccelerationChange()
     {
 	GameEngine ge = GameEngine.getInstance();
-	MoveAngledAccelerate mb = (MoveAngledAccelerate)ge.getCharacters().get("Boat").getMoveBehaviour();
+	AngledAcceleration mb = (AngledAcceleration)ge.getCharacters().get("Boat").getMoveBehaviour();
 	mb.setAcceleration(
 		(this.jSldAcceleration.getValue()*(this.accelerationScale/this.SLIDER_MAXIMUM)));
     }
@@ -934,7 +938,7 @@ public class ControlPanel extends javax.swing.JPanel
     private void sldMaximumVelocityChange()
     {
 	GameEngine ge = GameEngine.getInstance();
-	MoveAngledAccelerate mb = (MoveAngledAccelerate)ge.getCharacters().get("Boat").getMoveBehaviour();
+	AngledAcceleration mb = (AngledAcceleration)ge.getCharacters().get("Boat").getMoveBehaviour();
 	mb.setMaxVelocity(
 		(this.jSldScaleMaximumVelocity.getValue()*(this.maxVelocityScale/this.SLIDER_MAXIMUM)));
 	
@@ -944,7 +948,7 @@ public class ControlPanel extends javax.swing.JPanel
     private void sldAngularAccelerationChange()
     {
 	GameEngine ge = GameEngine.getInstance();
-	MoveAngledAccelerate mb = (MoveAngledAccelerate)ge.getCharacters().get("Boat").getMoveBehaviour();
+	AngledAcceleration mb = (AngledAcceleration)ge.getCharacters().get("Boat").getMoveBehaviour();
 	mb.setAngularAcceleration(
 		(this.jSldAngularAcceleration.getValue()*this.angAccelerationScale/this.SLIDER_MAXIMUM));
 	
@@ -954,7 +958,7 @@ public class ControlPanel extends javax.swing.JPanel
     private void sldMaximumAngularVelocityChange()
     {
 	GameEngine ge = GameEngine.getInstance();
-	MoveAngledAccelerate mb = (MoveAngledAccelerate)ge.getCharacters().get("Boat").getMoveBehaviour();
+	AngledAcceleration mb = (AngledAcceleration)ge.getCharacters().get("Boat").getMoveBehaviour();
 	mb.setAngularMaxVelocity(
 		(this.jSldMaximumAngularVelocity.getValue()*(this.maxAngularVelocityScale/this.SLIDER_MAXIMUM)));
 	
@@ -963,15 +967,15 @@ public class ControlPanel extends javax.swing.JPanel
     private void sldAngularFrictionChange()
     {
 	GameEngine ge = GameEngine.getInstance();
-	MoveAngledAccelerate mb = (MoveAngledAccelerate)ge.getCharacters().get("Boat").getMoveBehaviour();
+	AngledAcceleration mb = (AngledAcceleration)ge.getCharacters().get("Boat").getMoveBehaviour();
 	mb.setAngularFriction(
 		(this.jSldAngularFriction.getValue()*(this.angularFrictionScale/this.SLIDER_MAXIMUM)));
     }
     
-    public void initializeControlPanel(CharacterBase boat)
+    public void initializeControlPanel(Character boat)
     {
 	
-	MoveAngledAccelerate mb = (MoveAngledAccelerate )boat.getMoveBehaviour();
+	AngledAcceleration mb = (AngledAcceleration )boat.getMoveBehaviour();
 	
 	//location
 	this.jLblX.setText(String.valueOf((int)boat.getLocation().getX()));
@@ -1030,7 +1034,7 @@ public class ControlPanel extends javax.swing.JPanel
     public void updateControlPanel(CharacterBoat boat)
     {
 	
-	MoveAngledAccelerate mb = (MoveAngledAccelerate )boat.getMoveBehaviour();
+	AngledAcceleration mb = (AngledAcceleration )boat.getMoveBehaviour();
 	
 	//location
 	this.jLblX.setText(String.valueOf((int)boat.getLocation().getX()));

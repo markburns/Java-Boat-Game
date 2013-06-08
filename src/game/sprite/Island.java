@@ -6,21 +6,23 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-package game;
+package game.sprite;
 
+import game.movement.Location;
+import game.character.Character;
 import java.awt.*;
 
 /**
  *
  * @author Mark
  */
-public class SpriteIsland extends SpriteVector
+public class Island extends Vector
 {
 
 	/**
 	 * Creates a new instance of Sprite2dObstacle
 	 */
-	public SpriteIsland(CharacterBase owner)
+	public Island(Character owner)
 	{
 		super(owner);
 	}

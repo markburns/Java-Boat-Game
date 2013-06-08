@@ -6,17 +6,17 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-package game;
+package game.character;
 
-import java.awt.*;
+import game.movement.Location;
+import game.movement.Movement;
 import java.awt.geom.*;
-import java.util.*;
 
 /**
  *
  * @author Mark
  */
-public class CharacterComputerBoat extends CharacterBoatBase
+public class CharacterComputerBoat extends CharacterMoveable
 {
 
     /** Creates a new instance of CharacterComputerBoat */
@@ -85,7 +85,7 @@ public class CharacterComputerBoat extends CharacterBoatBase
     @Override
     public void collision()
     {
-        Move m = getMoveBehaviour();
+        Movement m = getMoveBehaviour();
 //		m.setAngle(Math.random() + m.getAngle());
         m.setVelocity(m.getVelocity() * 0.99);
         double random = Math.random();

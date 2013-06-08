@@ -8,285 +8,211 @@
  */
 package game;
 
-import java.awt.geom.*;
+import game.character.Cast;
+import game.movement.Location;
+import game.sprite.Sprite;
+import game.character.CharacterFactory;
+import game.character.Character;
 
 import java.util.*;
 import javax.swing.JOptionPane;
 
-/**S
+/**
+ * S
  *
  * @author Mark
  */
-public class GameEngine implements Runnable
-{
+public class GameEngine implements Runnable {
 
-    private static CharactersHash characters = game.CharactersHash.getInstance();
+    private static Cast cast = game.character.Cast.getInstance();
     public static Renderer renderer;
-    private static Controller controller = Controller.getInstance();
+    private static InputController controller = InputController.getInstance();
     private static int minObstacles;
     private static int maxObstacles;
+    private CharacterFactory characterFactory;
     private static int obstacleSize;
     public static final int SLEEP_LENGTH = 16;//16 ms equates to ~60 frames per second
-    private static GameEngine singleton;
+    private static GameEngine gameEngine;
     boolean alive = false;
-    
-    /** Creates a new instance of GameEngine */
-    private GameEngine()
-    {
-	initialize();
-    }
 
-    private static void initialize()
-    {
-	characters = game.CharactersHash.getInstance();
-	renderer = Renderer.getInstance();
-	controller = Controller.getInstance();
-	minObstacles = 10;
-	maxObstacles = minObstacles + 5;
-	obstacleSize = 20;
+    /**
+     * Creates a new instance of GameEngine
+     */
+    private GameEngine() {
+        cast = game.character.Cast.getInstance();
+        renderer = Renderer.getInstance();
+        controller = InputController.getInstance();
+        minObstacles = 10;
+        maxObstacles = minObstacles + 5;
+        obstacleSize = 20;
 
 
     }
 
-    public static void reset()
-    {
-	singleton = null;
-	
+    public static GameEngine getInstance() {
+        if (gameEngine != null) {
+            return gameEngine;
+
+        } else {
+            synchronized (GameEngine.class) {
+                if (gameEngine == null) {
+                    gameEngine = new GameEngine();
+                }
+            }
+
+        }
+
+        return gameEngine;
     }
 
-    public static GameEngine getInstance()
-    {
-	if (singleton != null)
-	{
-	    return singleton;
+    private CharacterFactory factory() {
+        if (this.characterFactory == null) {
+            this.characterFactory = new CharacterFactory();
+        }
 
-	}
-	else
-	{
-	    synchronized (GameEngine.class)
-	    {
-		if (singleton == null)
-		{
-		    singleton = new GameEngine();
-		}
-	    }
-
-	}
-
-	return singleton;
-    }
-
-    private void setupBoat()
-    {
-	CharacterFactoryBase factory = new CharacterFactoryConcrete();
-	CharacterBase boat = factory.createCharacter(Util.CharacterType.BOAT);
-	boat.setLocation(Util.getBoatLocation());
-	characters.put("Boat", boat);
-	GameWindow.getInstance().initializeControlPanel(boat);
-
+        return this.characterFactory;
 
     }
 
-    private void setupHarbour()
-    {
-	CharacterFactoryBase factory = new CharacterFactoryConcrete();
-	CharacterBase harbour = factory.createCharacter(Util.CharacterType.HARBOUR);
+    private Character addCharacter(String name, String type) {
+        Character c = create(type);
+        cast.put(name, c);
+        return c;
+    }
 
-	characters.put("Harbour", harbour);
+    private Character create(String type) {
+        Character c = factory().createCharacter(type);
+        return c;
+    }
+
+    private void setupObstacles() {
+        Character obstacle;
+
+        int min = Util.getMinimumNumberOfObstacles();
+        int max = Util.getMaxiumNumberOfObstacles();
+        int numberOfObstacles = (int) (Math.random() * (max - min));
+        for (int x = 0; x
+                < numberOfObstacles + 1; x++) {
+            if (Math.random() > 0.5) {
+                obstacle = create("BUOY");
+            } else {
+                obstacle = create("OCTOPUS");
+
+            }
+
+            Location l = new Location(
+                    Math.random() * renderer.getWidth(),
+                    Math.random() * renderer.getHeight());
+
+            obstacle.setLocation(l);
+            Sprite s = obstacle.getSprite();
+            obstacle.getSprite().getTransform().setToTranslation(l.getX(), l.getY());
+
+            s.setUntransformedArea(
+                    s.getUntransformedArea().createTransformedArea(obstacle.getSprite().
+                    getTransform()));
+
+
+            cast.put("Obstacle" + String.valueOf(x), obstacle);
+        }
 
     }
 
-    private void setupIsland()
-    {
-	CharacterFactoryBase factory = new CharacterFactoryConcrete();
-	CharacterBase island = factory.createCharacter(Util.CharacterType.ISLAND);
+    public void initialize() {
+        Util.loadImages();
 
-	characters.put("Island", island);
+        addCharacter("Harbour", "HARBOUR");
+        addCharacter("Goal", "GOAL");
+        addCharacter("Island", "ISLAND");
 
-    }
+        Character boat = addCharacter("Boat", "BOAT");
+        GameWindow.getInstance().initializeControlPanel(boat);
 
-    private void setupGoal()
-    {
-	CharacterFactoryBase factory = new CharacterFactoryConcrete();
-	CharacterBase goal = factory.createCharacter(Util.CharacterType.GOAL);
+        for (int x = 0; x < 2; x++) {
+            cast.put("ComputerBoat" + String.valueOf(x), create("COMPUTER_BOAT"));
+        }
 
-	characters.put("Goal", goal);
-
-    }
-
-    public void setupComputerBoat()
-    {
-
-	CharacterFactoryBase factory = new CharacterFactoryConcrete();
-	for (int x = 0; x <
-	      2; x++)
-	{
-	    CharacterBase computerBoat = factory.createCharacter(Util.CharacterType.COMPUTER_BOAT);
-	    computerBoat.setLocation(Math.random() * renderer.getWidth(), Math.random() * renderer.getHeight());
-	    characters.put("ComputerBoat" + String.valueOf(x), computerBoat);
-	}
-
-    }
-
-    private void setupObstacles()
-    {
-	CharacterFactoryBase factory = new CharacterFactoryConcrete();
-	CharacterBase obstacle;
-
-	int min = Util.getMinimumNumberOfObstacles();
-	int max = Util.getMamiumNumberOfObstacles();
-	int numberOfObstacles = (int) (Math.random() * (max - min));
-	for (int x = 0; x <
-	      numberOfObstacles + 1; x++)
-	{
-	    if (Math.random() > 0.5)
-	    {
-		obstacle = factory.createCharacter(Util.CharacterType.BUOY);
-	    }
-	    else
-	    {
-		obstacle = factory.createCharacter(Util.CharacterType.OCTOPUS);
-
-	    }
-
-	    Location l = new Location(Math.random() * renderer.getWidth(), Math.random() * renderer.getHeight());
-	    //do
-	    //{
-	    obstacle.setLocation(l);
-	    Sprite s = obstacle.getSprite();
-	    AffineTransform t = new AffineTransform();
-	    obstacle.getSprite().getTransform().setToTranslation(l.getX(), l.getY());
-	    s.setUntransformedArea(s.getUntransformedArea().createTransformedArea(obstacle.getSprite().getTransform()));
-
-	    //}
-	    //while(obstacle.detectCollision(characters.getAllCharacters()));
+        setupObstacles();
 
 
-	    characters.put("Obstacle" + String.valueOf(x), obstacle);
-	}
+        //draw the sea
+        renderer.setBackgroundImage(Util.imageResources.get("SEA"));
 
-    }
-
-    public void initialize(Renderer renderer)
-    {
-	this.renderer = renderer;
-	if (Util.loadImages())
-	{
-	    setupIsland();
-	    setupHarbour();
-	    setupGoal();
-	    setupBoat();
-	    setupComputerBoat();
-	    setupObstacles();
-
-
-	    //draw the sea
-	    renderer.setBackgroundImage(Util.imageResources.get("SEA"));
-
-	}
-	else
-	{
-	    JOptionPane.showMessageDialog(null, "Problem loading images");
-	    System.exit(0);
-
-	}
 
     }
     boolean storm = false;
 
-    public void storm()
-    {
-	ArrayList<CharacterBase> chars = this.characters.getObstacles();
-	for (Iterator i = chars.iterator(); i.hasNext();)
-	{
-	    CharacterBase c = (CharacterBase) i.next();
-	    c.getSprite().setShowSprite(!c.getSprite().isSpriteShown());
-	}
+    public void storm() {
+        ArrayList<Character> chars = this.cast.getObstacles();
+        for (Iterator i = chars.iterator(); i.hasNext();) {
+            Character c = (Character) i.next();
+            c.getSprite().setShowSprite(!c.getSprite().isSpriteShown());
+        }
 
-	storm = !storm;
-	if (storm)
-	{
-	    renderer.setBackgroundImage(Util.imageResources.get("NIGHT"));
+        storm = !storm;
+        if (storm) {
+            renderer.setBackgroundImage(Util.imageResources.get("NIGHT"));
 
-	}
-	else
-	{
-	    renderer.setBackgroundImage(Util.imageResources.get("SEA"));
-	}
+        } else {
+            renderer.setBackgroundImage(Util.imageResources.get("SEA"));
+        }
 
     }
-    
 
-    public void gameOver()
-    {
-	if (((CharacterBoat) characters.get("Boat")).immune == false)
-	{
-	    javax.swing.JOptionPane.showMessageDialog(null, "GAME OVER!");
-	    ((CharacterBoat) characters.get("Boat")).immune = true;
-	}
-
-	Controller.reset();
-	controller =     null;
+    public void gameOver() {
+        endGame("GAME OVER!");
     }
 
-    public void win()
-    {
-	if (((CharacterBoat) characters.get("Boat")).immune == false)
-	{
-	    javax.swing.JOptionPane.showMessageDialog(null, "YOU WIN!");
-	    Controller.reset();
-	    ((CharacterBoat) characters.get("Boat")).immune = true;
-	    controller =
-		  null;
-	}
+    public void win() {
+        endGame("YOU WIN!");
+
+    }
+
+    private void endGame(String message) {
+        if (cast.boatIsVulnerable()) {
+            javax.swing.JOptionPane.showMessageDialog(null, message);
+            cast.setBoatImmune();
+
+        }
 
     }
 
     @Override
-    public void run()
-    {
-	while (alive)
-	{
+    public void run() {
+        while (alive) {
 
-	    ArrayList<CharacterBase> moving = characters.getMovingCharacters();
+            ArrayList<Character> moving = cast.getMovingCharacters();
 
-	    for (Iterator i = characters.getObstacles().iterator(); i.hasNext();)
-	    {
-		CharacterBase c = (CharacterBase) i.next();
-		c.update();
-		c.detectCollision(moving);
+            for (Iterator i = cast.getObstacles().iterator(); i.hasNext();) {
+                Character c = (Character) i.next();
+                c.update();
+                c.detectCollision(moving);
 
-	    }
+            }
 
-	    for (Iterator i = moving.iterator(); i.hasNext();)
-	    {
-		CharacterBase c = (CharacterBase) i.next();
-		c.update();
-		c.detectCollision(moving);
+            for (Iterator i = moving.iterator(); i.hasNext();) {
+                Character c = (Character) i.next();
+                c.update();
+                c.detectCollision(moving);
 
-	    }
+            }
 
-	    renderer.repaint();
-	    try
-	    {
-		Thread.sleep(SLEEP_LENGTH);
-	    }
-	    catch (Exception ex)
-	    {
-		ex.printStackTrace();
-	    }
+            renderer.repaint();
+            try {
+                Thread.sleep(SLEEP_LENGTH);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
 
-	}
+        }
 
     }
 
-    public HashMap<String, CharacterBase> getCharacters()
-    {
-	return characters;
+    public HashMap<String, Character> getCharacters() {
+        return cast;
     }
 
-    public void setAlive(boolean alive)
-    {
-	this.alive = alive;
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
 }

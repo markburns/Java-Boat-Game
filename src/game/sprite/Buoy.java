@@ -7,14 +7,16 @@
  * and open the template in the editor.
  */
 
-package game;
+package game.sprite;
 
+import game.movement.Location;
+import game.character.Character;
 import java.awt.*;
 /**
  *
  * @author Mark
  */
-public class SpriteBuoy extends SpriteVector
+public class Buoy extends Vector
 {
     Color mainColor= new Color(20,50,24);
     
@@ -22,7 +24,7 @@ public class SpriteBuoy extends SpriteVector
     /**
 	 * Creates a new instance of SpriteBuoy
 	 */
-    public SpriteBuoy(CharacterBase owner)
+    public Buoy(Character owner)
     {
 	super(owner);
 	

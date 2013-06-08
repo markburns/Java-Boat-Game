@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
-package game;
+package game.character;
 
+import game.character.Character;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.Iterator;
  *
  * @author mrk
  */
-public class CharacterSolidStationary extends CharacterBase
+public class CharacterSolidStationary extends Character
 {
     
     public CharacterSolidStationary()

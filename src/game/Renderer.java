@@ -6,6 +6,9 @@
 
 package game;
 
+import game.movement.Location;
+import game.sprite.Sprite;
+import game.character.Character;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
@@ -24,7 +27,7 @@ public class Renderer extends JPanel
 {
     
     private Image background;
-    Collection<CharacterBase> charactersToRender;
+    Collection<Character> charactersToRender;
     
     public void setBackground(Image background)
     {
@@ -149,7 +152,7 @@ public class Renderer extends JPanel
 	charactersToRender=GameEngine.getInstance().getCharacters().values();
 	for (Iterator it = charactersToRender.iterator(); it.hasNext(); )
 	{
-	    CharacterBase o = (CharacterBase) it.next();
+	    Character o = (Character) it.next();
 	    Location l = o.getLocation();
 	    Sprite s=(Sprite)o.getSprite();
 	    if (s.isSpriteShown())

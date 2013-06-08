@@ -7,8 +7,10 @@
  * and open the template in the editor.
  */
 
-package game;
+package game.sprite;
 
+import game.movement.Location;
+import game.character.Character;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -16,11 +18,11 @@ import java.awt.Graphics;
  *
  * @author Mark
  */
-public class SpriteEnemyBoat extends SpriteVector
+public class EnemyBoat extends Vector
 {
     
     /** Creates a new instance of SpriteEnemyBoat */
-    public SpriteEnemyBoat(CharacterBase owner)
+    public EnemyBoat(Character owner)
     {
 	super(owner);
     }

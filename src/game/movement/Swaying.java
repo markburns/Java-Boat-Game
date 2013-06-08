@@ -6,19 +6,22 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-package game;
+package game.movement;
+
+import game.GameEngine;
+import game.character.Character;
 
 /**
  *
  * @author Mark
  */
-public class MoveSwaying extends MoveAngledAccelerate
+public class Swaying extends AngledAcceleration
 {
     
     /**
      * Creates a new instance of MoveSwaying
      */
-    public MoveSwaying(MoveAngledAccelerate move, double x, double y, double pRandomPhase, CharacterBase owner,
+    public Swaying(AngledAcceleration move, double x, double y, double pRandomPhase, Character owner,
 	    double swayH, double swayV)
     {
 	this.move = move;
@@ -31,8 +34,8 @@ public class MoveSwaying extends MoveAngledAccelerate
 	this.swaySizeVertical= swayV;
     }
     //Holds instance of superclass (used as a decorator class)
-    private MoveAngledAccelerate move;
-    private CharacterBase owner;
+    private AngledAcceleration move;
+    private Character owner;
     private double angMomentum = 0.06;
     private double phase = 0.0;
     private double yOffset = 0.0;
@@ -43,12 +46,12 @@ public class MoveSwaying extends MoveAngledAccelerate
     private double xAnchor;
     private double yAnchor;
     
-    public void setOwner(CharacterBase owner)
+    public void setOwner(Character owner)
     {
 	this.owner = owner;
     }
     
-    public CharacterBase getOwner()
+    public Character getOwner()
     {
 	return owner;
     }

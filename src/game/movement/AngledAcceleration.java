@@ -7,13 +7,13 @@
  * and open the template in the editor.
  */
 
-package game;
+package game.movement;
 
 /**
  *
  * @author Mark
  */
-public class MoveAngledAccelerate extends Move
+public class AngledAcceleration extends Movement
 {
     private double newAngle;
     private double angularAcceleration;
@@ -181,7 +181,7 @@ public class MoveAngledAccelerate extends Move
 	return angle;
     }
     /** Creates a new instance of MoveAngledAccelerate */
-    public MoveAngledAccelerate()
+    public AngledAcceleration()
     {
 	
     }

@@ -5,19 +5,19 @@
  *
  */
 
-package game;
+package game.movement;
 
 /**
  *
  * @author Mark
  */
-public class Move
+public class Movement
 {
     
     /**
      * Creates a new instance of Move
      */
-    public Move()
+    public Movement()
     {
     }
     

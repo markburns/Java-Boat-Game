@@ -3,8 +3,10 @@
  * and open the template in the editor.
  */
 
-package game;
+package game.character;
 
+import game.GameEngine;
+import game.character.Character;
 import java.util.*;
 import java.awt.geom.*;
 import java.awt.*;
@@ -16,16 +18,16 @@ import java.awt.*;
 class CharacterGoal extends CharacterSolidStationary
 {
 
-    public boolean detectCollision(ArrayList<CharacterBase> data)
+    public boolean detectCollision(ArrayList<Character> data)
     {
 	Rectangle characterBounds = null;
-	ArrayList<CharacterBase> moving = data;
+	ArrayList<Character> moving = data;
 	boolean collision =false;
 	try
 	{
 	    for (Iterator i = moving.iterator(); i.hasNext();)
 	    {
-		CharacterBase c = (CharacterBase) i.next();
+		Character c = (Character) i.next();
 		if(!c.equals(this))
 		{
 		    
