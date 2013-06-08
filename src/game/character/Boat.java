@@ -20,7 +20,7 @@ import java.awt.geom.*;
  *
  * @author Mark
  */
-public class CharacterBoat extends CharacterMoveable {
+public class Boat extends Moveable {
 
     private ControlMethod controlMethod = ControlMethod.NULL;
     Location pivotPoint;
@@ -44,7 +44,7 @@ public class CharacterBoat extends CharacterMoveable {
     /**
      * Creates a new instance of CharacterBoat
      */
-    public CharacterBoat() {
+    public Boat() {
 
     }
 

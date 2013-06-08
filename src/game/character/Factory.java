@@ -17,8 +17,8 @@ import game.movement.Swaying;
 import game.Renderer;
 import game.sprite.Sprite;
 import game.sprite.Buoy;
-import game.sprite.Goal;
-import game.sprite.Harbour;
+import game.character.Goal;
+import game.character.Harbour;
 import game.sprite.SpriteImage;
 import game.sprite.Island;
 import game.Util;
@@ -33,12 +33,12 @@ import java.awt.geom.GeneralPath;
  *
  * @author Mark
  */
-public class CharacterFactory {
+public class Factory {
 
     /**
      * Creates a new instance of CharacterFactoryBase
      */
-    public CharacterFactory() {
+    public Factory() {
     }
     
     private Area createAreaFromLocations(int[] locations, GeneralPath generalPath) {
@@ -64,8 +64,8 @@ public class CharacterFactory {
         return area;
     }
 
-    private CharacterBoat createBoat() {
-        CharacterBoat boat = new CharacterBoat();
+    private Boat createBoat() {
+        Boat boat = new Boat();
         Renderer renderer = Renderer.getInstance();
 
         int x = 10;
@@ -90,7 +90,7 @@ public class CharacterFactory {
    
         boat.setSprite(boatSprite);
 
-        boat.setControlMethod(CharacterBoat.ControlMethod.ROTATING);
+        boat.setControlMethod(Boat.ControlMethod.ROTATING);
         Movement move = Util.getBoatMovePresets();
 
         //Add a swaying motion to the boat
@@ -99,9 +99,9 @@ public class CharacterFactory {
         return boat;
     }
 
-    private CharacterComputerBoat createComputerBoat() {
+    private EnemyBoat createComputerBoat() {
 
-        CharacterComputerBoat computerBoat = new CharacterComputerBoat();
+        EnemyBoat computerBoat = new EnemyBoat();
 
 
         Renderer renderer = Renderer.getInstance();
@@ -134,16 +134,14 @@ public class CharacterFactory {
         return computerBoat;
     }
 
-    private CharacterHarbour createHarbour() {
+    private Harbour createHarbour() {
 
 
         Renderer renderer = Renderer.getInstance();
 
 
-        CharacterHarbour harbour = new CharacterHarbour();
-
-
-        Harbour harbourSprite = new game.sprite.Harbour(harbour);
+        Harbour harbour = new Harbour();
+        game.sprite.Harbour harbourSprite = new game.sprite.Harbour(harbour);
 
         GeneralPath generalPath = new GeneralPath();
 
@@ -205,7 +203,7 @@ public class CharacterFactory {
 
         Renderer renderer = Renderer.getInstance();
 
-        Character octopus = new CharacterObstacle();
+        Character octopus = new Obstacle();
 
         Image[] images = new Image[1];
         images[0] = Util.imageResources.get("OCTOPUS");
@@ -237,15 +235,15 @@ public class CharacterFactory {
 
     }
 
-    private CharacterGoal createGoal() {
+    private game.character.Goal createGoal() {
 
 
         Renderer renderer = Renderer.getInstance();
 
-        CharacterGoal goal = new CharacterGoal();
+        game.character.Goal goal = new game.character.Goal();
 
 
-        Goal goalSprite = new Goal(goal);
+        game.sprite.Goal goalSprite = new game.sprite.Goal(goal);
 
         Area area = new Area(new Rectangle(0, 0, 100, 50));
 
@@ -265,9 +263,9 @@ public class CharacterFactory {
 
     }
 
-    public CharacterObstacle createBuoy() {
+    public Obstacle createBuoy() {
         Renderer renderer = Renderer.getInstance();
-        CharacterObstacle buoy = new CharacterObstacle();
+        Obstacle buoy = new Obstacle();
         Sprite sprite = new Buoy(buoy);
         double randomX = (Math.random() * renderer.getWidth());
         double randomY = (Math.random() * renderer.getHeight());

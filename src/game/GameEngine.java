@@ -11,7 +11,7 @@ package game;
 import game.character.Cast;
 import game.movement.Location;
 import game.sprite.Sprite;
-import game.character.CharacterFactory;
+import game.character.Factory;
 import game.character.Character;
 
 import java.util.*;
@@ -29,7 +29,7 @@ public class GameEngine implements Runnable {
     private static InputController controller = InputController.getInstance();
     private static int minObstacles;
     private static int maxObstacles;
-    private CharacterFactory characterFactory;
+    private Factory characterFactory;
     private static int obstacleSize;
     public static final int SLEEP_LENGTH = 16;//16 ms equates to ~60 frames per second
     private static GameEngine gameEngine;
@@ -65,9 +65,9 @@ public class GameEngine implements Runnable {
         return gameEngine;
     }
 
-    private CharacterFactory factory() {
+    private Factory factory() {
         if (this.characterFactory == null) {
-            this.characterFactory = new CharacterFactory();
+            this.characterFactory = new Factory();
         }
 
         return this.characterFactory;

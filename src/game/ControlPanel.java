@@ -7,7 +7,7 @@
 package game;
 
 import game.movement.AngledAcceleration;
-import game.character.CharacterBoat;
+import game.character.Boat;
 import game.character.Character;
 
 
@@ -1031,7 +1031,7 @@ public class ControlPanel extends javax.swing.JPanel
 	this.jTxtAngularFriction.setText(String.valueOf(this.angularFrictionScale));
 	
     }
-    public void updateControlPanel(CharacterBoat boat)
+    public void updateControlPanel(Boat boat)
     {
 	
 	AngledAcceleration mb = (AngledAcceleration )boat.getMoveBehaviour();

@@ -95,9 +95,9 @@ public abstract class Character {
                         Character boat = GameEngine.getInstance().getCharacters().get("Boat");
 
                         if (c.equals(boat)) {
-                            int e = ((CharacterBoat) boat).getEnergy();
+                            int e = ((Boat) boat).getEnergy();
                             e--;
-                            ((CharacterBoat) boat).setEnergy(e);
+                            ((Boat) boat).setEnergy(e);
 
                             if (e <= 0) {
 

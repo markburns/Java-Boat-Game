@@ -39,11 +39,11 @@ public class Cast extends HashMap<String, Character> {
     }
 
     public boolean boatIsVulnerable() {
-        return ((CharacterBoat) cast.get("Boat")).immune == false;
+        return ((Boat) cast.get("Boat")).immune == false;
     }
 
     public void setBoatImmune() {
-        ((CharacterBoat) cast.get("Boat")).immune = true;
+        ((Boat) cast.get("Boat")).immune = true;
     }
 
     public ArrayList<Character> getMovingCharacters() {

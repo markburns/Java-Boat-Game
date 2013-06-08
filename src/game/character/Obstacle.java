@@ -21,7 +21,7 @@ import java.util.*;
  *
  * @author Mark
  */
-public class CharacterObstacle extends Character
+public class Obstacle extends Character
 {
     private double angMomentum=0.06;
     private double xAngMomentum;
@@ -31,7 +31,7 @@ public class CharacterObstacle extends Character
     private double randomMomentum;
     private double randomPhase;
     /** Creates a new instance of CharacterObstacle */
-    public CharacterObstacle()
+    public Obstacle()
     {
 	xAngMomentum = getLocation().getX();
 	phase+=randomPhase;

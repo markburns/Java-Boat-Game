@@ -16,11 +16,11 @@ import java.awt.geom.*;
  *
  * @author Mark
  */
-public class CharacterComputerBoat extends CharacterMoveable
+public class EnemyBoat extends Moveable
 {
 
     /** Creates a new instance of CharacterComputerBoat */
-    public CharacterComputerBoat()
+    public EnemyBoat()
     {
 
     }

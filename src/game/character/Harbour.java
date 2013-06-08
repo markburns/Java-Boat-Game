@@ -17,12 +17,12 @@ import java.awt.geom.*;
  *
  * @author Mark
  */
-public class CharacterHarbour extends CharacterSolidStationary {
+public class Harbour extends CharacterSolidStationary {
 
     /**
      * Creates a new instance of CharacterHarbour
      */
-    public CharacterHarbour() {
+    public Harbour() {
     }
 
     public boolean detectCollision(ArrayList<Character> data) {

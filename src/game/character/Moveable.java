@@ -14,14 +14,14 @@ import java.util.TimerTask;
  *
  * @author mrk
  */
-public abstract class CharacterMoveable extends Character
+public abstract class Moveable extends Character
 {
 
     protected boolean immune = false;
     Renderer renderer = Renderer.getInstance();
 
     
-    public CharacterMoveable()
+    public Moveable()
     {
     }
 
