@@ -20,7 +20,7 @@ public class Cast extends HashMap<String, Character> {
         }
         return cast;
     }
- 
+
     public boolean boatIsVulnerable() {
         return ((Boat) cast.get("Boat")).immune == false;
     }
@@ -104,15 +104,10 @@ public class Cast extends HashMap<String, Character> {
     public ArrayList<Character> getObstacles() {
         ArrayList<Character> obstacles = new ArrayList<>();
         int x = 0;
-        boolean finished = false;
-        while (!finished) {
 
-            if (cast.containsKey("Obstacle" + String.valueOf(x))) {
-                obstacles.add(cast.get("Obstacle" + String.valueOf(x)));
-                x++;
-            } else {
-                finished = true;
-            }
+        while (cast.containsKey("Obstacle" + String.valueOf(x))) {
+            obstacles.add(cast.get("Obstacle" + String.valueOf(x)));
+            x++;
 
         }
         obstacles.add(cast.get("Harbour"));

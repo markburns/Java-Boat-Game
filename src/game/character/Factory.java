@@ -100,10 +100,10 @@ public class Factory {
         SpriteImage computerBoatSprite = new SpriteImage(boatImages, computerBoat);
         computerBoatSprite.setShowSprite(true);
 
+        
         int x = 450;
         int y = 400;
 
-        computerBoat.setLocation(new Location(x, y));
         computerBoatSprite.setTransformation(x, y, Util.getBoatArea(boatImages[0]));
         computerBoat.setSprite(computerBoatSprite);
 

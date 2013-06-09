@@ -45,28 +45,34 @@ public class Boat extends Moveable {
     public Boat() {
     }
 
+    private double pinAngle(double value) {
+        if (Math.abs(value) > Math.PI) {
+            while (value > Math.PI) {
+                value = value - (2 * Math.PI);
+            }
+            while (value < -Math.PI) {
+                value = value + (2 * Math.PI);
+            }
+        }
+        return value;
+
+    }
+
     private void processMouse() {
         Point2D p = this.getController().getMouseLocation();
 
         Location dest = new Location(p.getX(), p.getY());
-        double x = this.getSprite().getTransformedArea().getBounds().getCenterX();
-        double y = this.getSprite().getTransformedArea().getBounds().getCenterY();
-        double dy = dest.getY() - y;
-        double dx = dest.getX() - x;
+
+        double dy = dest.getY() - y();
+        double dx = dest.getX() - x();
 
         double destinationAngle = Math.atan2(dy, dx);
 
         AngledAcceleration m = (AngledAcceleration) getMoveBehaviour();
         double angleDelta = destinationAngle - m.getAngle();
 
-        if (Math.abs(angleDelta) > Math.PI) {
-            while (angleDelta > Math.PI) {
-                angleDelta = angleDelta - (2 * Math.PI);
-            }
-            while (angleDelta < -Math.PI) {
-                angleDelta = angleDelta + (2 * Math.PI);
-            }
-        }
+        angleDelta = pinAngle(angleDelta);
+        
         if (Math.abs(angleDelta) < (Math.PI / 2.0)) {
             if ((angleDelta < Math.PI) && (angleDelta > 0)) {
                 setLocation(m.goRight(getLocation()));

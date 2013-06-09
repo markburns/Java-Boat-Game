@@ -218,7 +218,6 @@ public class GameWindow extends javax.swing.JFrame {
 
         gameEngine = GameEngine.getInstance();
         gameEngine.initialize();
-        gameEngine.setAlive(true);
 
         thread = new Thread(gameEngine);
         thread.setName("GameEngineThread");

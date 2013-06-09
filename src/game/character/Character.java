@@ -31,15 +31,32 @@ public abstract class Character {
         return myLocation.getY();
     }
 
+    public double centreY() {
+        return getHeight() / 2;
+    }
+
+    public double centreX() {
+        return getWidth() / 2;
+    }
+
+    public double getHeight() {
+        return getBounds().getHeight();
+    }
+
+    public double getWidth() {
+        return getBounds().getWidth();
+    }
+
     public void setTransform(Location rotateCentre) {
-        double centreWidth;
         double centreHeight;
+        double centreWidth;
+
         AffineTransform temp = AffineTransform.getTranslateInstance(
                 getLocation().getX(), getLocation().getY());
 
         if (rotateCentre == null) {
-            centreWidth = getSprite().getUntransformedArea().getBounds().getWidth() / 2;
-            centreHeight = getSprite().getUntransformedArea().getBounds().getHeight() / 2;
+            centreWidth = centreX();
+            centreHeight = centreY();
         } else {
             centreWidth = rotateCentre.getX();
             centreHeight = rotateCentre.getY();
@@ -60,7 +77,17 @@ public abstract class Character {
     public Rectangle getBounds() {
         return sprite.getBounds();
     }
+    
+    public double x(){
+        return getBounds().getCenterX();
 
+    }
+        
+    public double y(){
+        return getBounds().getCenterY();
+
+    }
+        
     public boolean collides(Character c) {
         if (c.equals(this)) {
             return false;
@@ -87,7 +114,6 @@ public abstract class Character {
      * @return true if this Character collided with one of characters
      */
     public boolean detectCollision(ArrayList<Character> data) {
-        Rectangle characterBounds;
         ArrayList<Character> moving = data;
         boolean collision = false;
 
@@ -95,7 +121,7 @@ public abstract class Character {
         for (int i = 0; i < length; i++) {
             Character c = moving.get(i);
 
-            if (collision = collides(c)) {              
+            if (collision = collides(c)) {
                 c.collide();
             }
         }

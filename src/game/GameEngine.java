@@ -19,11 +19,10 @@ public class GameEngine implements Runnable {
     private static int obstacleSize;
     public static final int SLEEP_LENGTH = 16;//16 ms equates to ~60 frames per second
     private static GameEngine gameEngine;
-    boolean alive = false;
 
     
     public static Character getCharacter(String type){
-        return GameEngine.getInstance().getCharacters().get("Boat");
+        return GameEngine.getInstance().getCharacters().get(type);
     }
     private GameEngine() {
         cast = game.character.Cast.getInstance();
@@ -167,7 +166,7 @@ public class GameEngine implements Runnable {
 
     @Override
     public void run() {
-        while (alive) {
+        while (true) {
 
             ArrayList<Character> moving = cast.getMovingCharacters();
             ArrayList<Character> obstacles = cast.getObstacles();
@@ -201,9 +200,5 @@ public class GameEngine implements Runnable {
 
     public HashMap<String, Character> getCharacters() {
         return cast;
-    }
-
-    public void setAlive(boolean alive) {
-        this.alive = alive;
     }
 }
