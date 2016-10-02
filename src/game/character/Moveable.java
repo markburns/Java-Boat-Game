@@ -9,7 +9,7 @@ import java.util.TimerTask;
 public abstract class Moveable extends Character
 {
 
-    protected boolean immune = false;
+    protected boolean immune = false; //boolean that sets player to receive damage
     Renderer renderer = Renderer.getInstance();
 
     
@@ -68,25 +68,25 @@ public abstract class Moveable extends Character
 
         if (!immune)
         {
-            SpriteImage s = (SpriteImage) getSprite();
-            s.setFrame(1);
+            SpriteImage boatImage = (SpriteImage) getSprite();
+            boatImage.setFrame(1);
             immune = true;
-            Movement mb = getMoveBehaviour();
+            Movement moveAction = getMoveBehaviour();
             //getMoveBehaviour().angle+=(Math.random()-0.5);
-            mb.setAngularVelocity(mb.getAngularVelocity() + (Math.random() - 0.5) * 0.4);
-            mb.setAngle(mb.getAngle() + (Math.random() - 0.5) * 0.1);
-            mb.setVelocity(-mb.getVelocity() * (3.8 * Math.random()));
+            moveAction.setAngularVelocity(moveAction.getAngularVelocity() + (Math.random() - 0.5) * 0.4);
+            moveAction.setAngle(moveAction.getAngle() + (Math.random() - 0.5) * 0.1);
+            moveAction.setVelocity(-moveAction.getVelocity() * (3.8 * Math.random()));
 
-            if (mb.getVelocity() > mb.getMaxVelocity())
+            if (moveAction.getVelocity() > moveAction.getMaxVelocity())
             {
-                mb.setVelocity(mb.getMaxVelocity());
+                moveAction.setVelocity(moveAction.getMaxVelocity());
             }
 
-            if (mb.getVelocity() < -mb.getMaxVelocity())
+            if (moveAction.getVelocity() < -moveAction.getMaxVelocity())
             {
-                mb.setVelocity(-mb.getMaxVelocity());
+                moveAction.setVelocity(-moveAction.getMaxVelocity());
             }
-            Timer timer = new Timer();
+            Timer timer = new Timer(); // setting immunity time
             timer.schedule
 		  (new TimerTask()
                      {
@@ -94,8 +94,8 @@ public abstract class Moveable extends Character
                          @Override
                          public void run()
                          {
-                             SpriteImage s = (SpriteImage) getSprite();
-                             s.setFrame(0);
+                             SpriteImage boatImage = (SpriteImage) getSprite();
+                             boatImage.setFrame(0);
                              immune = false;
                          }
                      }

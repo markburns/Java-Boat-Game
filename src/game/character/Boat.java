@@ -23,22 +23,22 @@ public class Boat extends Moveable {
     }
 
     private void reduceEnergy() {
-        int e = getEnergy();
-        e--;
+        int reduceEnergy = getEnergy(); //auxiliary int for reducing energy
+        reduceEnergy--;
 
-        setEnergy(e);
+        setEnergy(reduceEnergy);
 
-        if (e <= 0) {
+        if (reduceEnergy <= 0) {
 
             GameEngine.getInstance().gameOver();
         } else {
 
-            GameWindow.getInstance().setEnergyBarLevel(e);
+            GameWindow.getInstance().setEnergyBarLevel(reduceEnergy);
         }
 
     }
 
-    public void collision(Character c) {
+    public void collision(Character character) {
         reduceEnergy();
     }
 
@@ -59,47 +59,47 @@ public class Boat extends Moveable {
     }
 
     private void processMouse() {
-        Point2D p = this.getController().getMouseLocation();
+        Point2D point = this.getController().getMouseLocation(); //mouse pointing
 
-        Location dest = new Location(p.getX(), p.getY());
+        Location dest = new Location(point.getX(), point.getY()); //game coordinates
 
         double dy = dest.getY() - y();
         double dx = dest.getX() - x();
 
         double destinationAngle = Math.atan2(dy, dx);
 
-        AngledAcceleration m = (AngledAcceleration) getMoveBehaviour();
-        double angleDelta = destinationAngle - m.getAngle();
+        AngledAcceleration mouseMove = (AngledAcceleration) getMoveBehaviour();
+        double angleDelta = destinationAngle - mouseMove.getAngle();
 
         angleDelta = pinAngle(angleDelta);
         
         if (Math.abs(angleDelta) < (Math.PI / 2.0)) {
             if ((angleDelta < Math.PI) && (angleDelta > 0)) {
-                setLocation(m.goRight(getLocation()));
+                setLocation(mouseMove.goRight(getLocation()));
             }
 
             if ((angleDelta < 0) && (angleDelta > -Math.PI)) {
-                setLocation(m.goLeft(getLocation()));
+                setLocation(mouseMove.goLeft(getLocation()));
             }
             //accelerate
-            setLocation(m.goUp(getLocation()));
+            setLocation(mouseMove.goUp(getLocation()));
         } else {
-            m.setVelocity(m.getVelocity() * 0.95);
+            mouseMove.setVelocity(mouseMove.getVelocity() * 0.95);
 
             if ((angleDelta > 0)) {
 
-                setLocation(m.goRight(getLocation()));
+                setLocation(mouseMove.goRight(getLocation()));
             }
 
             if ((angleDelta < 0)) {
-                setLocation(m.goLeft(getLocation()));
+                setLocation(mouseMove.goLeft(getLocation()));
             }
 
         }
 
 
 
-        setLocation(m.goUp(getLocation()));
+        setLocation(mouseMove.goUp(getLocation()));
 
 
     }

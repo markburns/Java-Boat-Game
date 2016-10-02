@@ -24,10 +24,8 @@ public class Factory {
 
     private Area createAreaFromLocations(int[] locations, GeneralPath generalPath) {
         int count = 0;
-        int x;
-        int y;
-        x = locations[count];
-        y = locations[count + 1];
+        int x = locations[count];;
+        int y = locations[count + 1];
         generalPath.moveTo(x, y);
         count += 2;
         while (count < locations.length) {
@@ -74,8 +72,8 @@ public class Factory {
         Movement move = Util.getBoatMovePresets();
 
         //Add a swaying motion to the boat
-        Movement m = new Swaying((AngledAcceleration) move, 0, 0, Math.random(), boat, 0.2, 0.3);
-        boat.setMoveBehaviour(m);
+        Movement swayMove = new Swaying((AngledAcceleration) move, 0, 0, Math.random(), boat, 0.2, 0.3);
+        boat.setMoveBehaviour(swayMove);
         return boat;
     }
 
@@ -132,10 +130,10 @@ public class Factory {
         harbour.setLocation(new Location(0, 0));
 
         harbourSprite.setUntransformedArea(area);
-        AffineTransform t = new AffineTransform();
-        t.setToTranslation(0, 0);
-        harbourSprite.setTransform(t);
-        harbourSprite.setTransformedArea(area.createTransformedArea(t));
+        AffineTransform transform = new AffineTransform();
+        transform.setToTranslation(0, 0);
+        harbourSprite.setTransform(transform);
+        harbourSprite.setTransformedArea(area.createTransformedArea(transform));
 
         harbourSprite.setShowSprite(false);
 
@@ -162,11 +160,11 @@ public class Factory {
         Area area = createAreaFromLocations(locations, generalPath);
 
         islandSprite.setUntransformedArea(area);
-        AffineTransform t = new AffineTransform();
-        t.setToIdentity();
-        islandSprite.setTransform(t);
+        AffineTransform transform = new AffineTransform();
+        transform.setToIdentity();
+        islandSprite.setTransform(transform);
 
-        islandSprite.setTransformedArea(area.createTransformedArea(t));
+        islandSprite.setTransformedArea(area.createTransformedArea(transform));
 
         islandSprite.setShowSprite(false);
 
@@ -200,12 +198,12 @@ public class Factory {
         octopus.setMoveBehaviour(move);
 
         octopusSprite.setUntransformedArea(area);
-        AffineTransform t = new AffineTransform();
+        AffineTransform transform = new AffineTransform();
 
-        t.setToIdentity();
+        transform.setToIdentity();
 
-        octopusSprite.setTransform(t);
-        octopusSprite.setTransformedArea(area.createTransformedArea(t));
+        octopusSprite.setTransform(transform);
+        octopusSprite.setTransformedArea(area.createTransformedArea(transform));
         octopusSprite.setSqueezeImageIntoTransformedArea(true);
         octopusSprite.setShowSprite(true);
         octopus.setSprite(octopusSprite);
@@ -227,11 +225,11 @@ public class Factory {
         Area area = new Area(new Rectangle(0, 0, 100, 50));
 
         goalSprite.setUntransformedArea(area);
-        AffineTransform t = new AffineTransform();
-        t.setToTranslation(renderer.getWidth() - 100, renderer.getHeight() - 50);
-        goalSprite.setTransform(t);
+        AffineTransform transform = new AffineTransform();
+        transform.setToTranslation(renderer.getWidth() - 100, renderer.getHeight() - 50);
+        goalSprite.setTransform(transform);
 
-        goalSprite.setTransformedArea(area.createTransformedArea(t));
+        goalSprite.setTransformedArea(area.createTransformedArea(transform));
 
         goalSprite.setShowSprite(true);
 
@@ -254,12 +252,12 @@ public class Factory {
         Movement sway = new game.movement.Swaying(null, randomX, randomY, randomY, buoy, 1, 2);
         buoy.setMoveBehaviour(sway);
         int size = Util.getObstacleSize();
-        Area a = new Area(new java.awt.geom.Ellipse2D.Double(randomX - size / 2, randomY - size / 2, size, size));
-        sprite.setUntransformedArea(a);
-        AffineTransform t = new AffineTransform();
-        t.setToTranslation(randomX, randomY);
+        Area area = new Area(new java.awt.geom.Ellipse2D.Double(randomX - size / 2, randomY - size / 2, size, size));
+        sprite.setUntransformedArea(area);
+        AffineTransform transform = new AffineTransform();
+        transform.setToTranslation(randomX, randomY);
 
-        sprite.setTransformedArea(a);
+        sprite.setTransformedArea(area);
         sprite.setShowSprite(true);
         sprite.setHeight(size);
         sprite.setWidth(size);

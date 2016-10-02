@@ -88,13 +88,13 @@ public abstract class Character {
 
     }
         
-    public boolean collides(Character c) {
-        if (c.equals(this)) {
+    public boolean collides(Character character) {
+        if (character.equals(this)) {
             return false;
         }
 
         Area intersectArea = new Area(getTransformedArea());
-        Area b = c.getTransformedArea();
+        Area b = character.getTransformedArea();
 
         intersectArea.intersect(b);
 
@@ -105,7 +105,7 @@ public abstract class Character {
         return sprite.getTransformedArea();
     }
 
-    public void collide(Character c) {
+    public void collide(Character character) {
     }
 
     /**
@@ -119,10 +119,10 @@ public abstract class Character {
 
         int length = moving.size();
         for (int i = 0; i < length; i++) {
-            Character c = moving.get(i);
+            Character character = moving.get(i);
 
-            if (collision = collides(c)) {
-                c.collide();
+            if (collision = collides(character)) {
+                character.collide();
             }
         }
 

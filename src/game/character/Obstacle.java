@@ -24,11 +24,11 @@ public class Obstacle extends Character
     {
 	
 	setLocation(getMoveBehaviour().go(getLocation()));
-	AffineTransform t = new AffineTransform();
-	t.setToTranslation(getX(),getY());
-	Area a = new Area(getSprite().getUntransformedArea());
-	a.transform(t);
-	getSprite().setTransformedArea(a);
+	AffineTransform transform = new AffineTransform();
+	transform.setToTranslation(getX(),getY());
+	Area area = new Area(getSprite().getUntransformedArea());
+	area.transform(transform);
+	getSprite().setTransformedArea(area);
 	
     }
     
