@@ -110,7 +110,8 @@ public class Boat extends Moveable {
 
     }
 
-    private void processKeyPressSquare(InputController.Control keypress) {
+    @SuppressWarnings("unused")
+	private void processKeyPressSquare(InputController.Control keypress) {
         switch (keypress) {
             case UP:
                 setLocation(getMoveBehaviour().goUp(getLocation()));
@@ -142,8 +143,9 @@ public class Boat extends Moveable {
     }
 
     private void processKeyPressRotating(InputController.Control keypress) {
-
-        switch (keypress) {
+    	
+    	try{
+    	switch (keypress) {
             case UP:
                 setLocation(getMoveBehaviour().goUp(getLocation()));
                 break;
@@ -169,16 +171,23 @@ public class Boat extends Moveable {
                 //do nothing
                 break;
         }
-
+    	}catch(NullPointerException e){
+    		System.out.println("Erro: " + e);
+    	}
+    	
     }
 
     @Override
     public void update() {
         InputController controller = getController();
         if (controller.keyPressEventsPending()) {
-            InputController.Control pressedControl = controller.getPressedControl();
-            processKeyPressRotating(pressedControl);
-
+        	try{
+        		InputController.Control pressedControl = controller.getPressedControl();
+        		processKeyPressRotating(pressedControl);
+            }catch(NullPointerException|IndexOutOfBoundsException e){
+            	System.out.println("Erro: " + e);
+            	
+            }
         } else {
             setLocation(getMoveBehaviour().go(getLocation()));
         }

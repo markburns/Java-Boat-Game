@@ -3,6 +3,7 @@ package game;
 import java.awt.event.*;
 import java.util.*;
 import java.awt.geom.*;
+import java.io.PrintStream;
 
 public class InputController {
 
@@ -63,20 +64,26 @@ public class InputController {
 
     }
 
+    /** Handles incoming user input
+    @param evt - a KeyEvent describing which Key was pressed
+     */
     public void handleMouseMove(MouseEvent evt) {
         this.mouseLocation.setLocation(evt.getX(), evt.getY());
         this.blnHasMouseMoved = true;
     }
 
-    /** Handles incoming user input
-    @param evt - a KeyEvent describing which Key was pressed
-     */
-    public Control getPressedControl() {
+    public Control getPressedControl() throws java.lang.NullPointerException {
         if (pressedControls.size() > 0) {
-            return pressedControls.remove(0);
-        } else {
-            return Control.NULL_CONTROL;
+     		try{
+     			return pressedControls.remove(0);
+     		}catch(NullPointerException|IndexOutOfBoundsException e){
+     			System.out.println("Erro: " + e);
+     			pressedControls = new java.util.LinkedList<>();
+     		}
+     	} else {
+         //   return Control.NULL_CONTROL;
         }
+		return Control.NULL_CONTROL;
 
     }
 
@@ -143,7 +150,15 @@ public class InputController {
     }
 
     public int getNumberOfHeldControls() {
-        return this.heldControls.toArray().length;
+    	int heldControl;
+    	try{
+    	heldControl = this.heldControls.toArray().length;
+    	}catch(IndexOutOfBoundsException e){
+    		System.out.println("Erro :" + e);
+    		heldControl = 0;
+    	}
+    	
+		return heldControl;
     }
 
     public Control getHeldControl(int index) {

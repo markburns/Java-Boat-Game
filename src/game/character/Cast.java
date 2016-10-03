@@ -4,7 +4,11 @@ import java.util.*;
 
 public class Cast extends HashMap<String, Character> {
 
-    private static Cast cast;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static Cast cast;
 
     public static Cast getInstance() {
         if (cast != null) {
@@ -22,7 +26,15 @@ public class Cast extends HashMap<String, Character> {
     }
 
     public boolean boatIsVulnerable() {
-        return ((Boat) cast.get("Boat")).immune == false;
+    	boolean isVulnerable;
+    	try{
+    		isVulnerable = ((Boat) cast.get("Boat")).immune == false;
+    					
+    	}catch(Exception e){
+    		System.out.println("Erro: " + e);
+    		isVulnerable = false;
+    	}
+        return  isVulnerable;
     }
 
     public void setBoatImmune() {
@@ -32,8 +44,13 @@ public class Cast extends HashMap<String, Character> {
     public ArrayList<Character> getMovingCharacters() {
 
         ArrayList<Character> charactersMoving = new ArrayList<>();
-
-        charactersMoving.add(cast.get("Boat"));
+        
+        try{
+        	charactersMoving.add(cast.get("Boat"));
+        }catch(IndexOutOfBoundsException e){
+        	System.out.println("Erro: " + e);
+        	charactersMoving = new ArrayList<>();
+        }
         int x = 0;
 
         boolean finished = false;
@@ -66,8 +83,13 @@ public class Cast extends HashMap<String, Character> {
         while (!finished) {
 
             if (cast.containsKey("Obstacle" + String.valueOf(x))) {
-                all.add(cast.get("Obstacle" + String.valueOf(x)));
-                x++;
+            	try{
+            		all.add(cast.get("Obstacle" + String.valueOf(x)));
+            	}catch(IndexOutOfBoundsException e){
+                	System.out.println("Erro: " + e);
+                	all = new ArrayList<>();
+                }
+            	x++;
             } else {
                 finished = true;
             }
@@ -75,8 +97,12 @@ public class Cast extends HashMap<String, Character> {
         String[] objects = {"Harbour", "Island", "Boat"};
         for (int y = 0; y < 3; y++) {
             if (cast.containsKey(objects + String.valueOf(x))) {
-                all.add(cast.get(objects + String.valueOf(x)));
-
+                try{
+                	all.add(cast.get(objects + String.valueOf(x)));
+                }catch(IndexOutOfBoundsException e){
+                	System.out.println("Erro: " + e);
+                	all = new ArrayList<>();
+                }
             }
         }
 
@@ -86,7 +112,12 @@ public class Cast extends HashMap<String, Character> {
         while (!finished) {
 
             if (cast.containsKey("ComputerBoat" + String.valueOf(x))) {
-                all.add(cast.get("ComputerBoat" + String.valueOf(x)));
+                try{
+                	all.add(cast.get("ComputerBoat" + String.valueOf(x)));
+                }catch(IndexOutOfBoundsException e){
+                	System.out.println("Erro: " + e);
+                	all = new ArrayList<>();
+                }
                 x++;
             } else {
                 finished = true;
@@ -94,8 +125,12 @@ public class Cast extends HashMap<String, Character> {
 
         }
         if (cast.containsKey("Goal")) {
-            all.add(cast.get("Goal"));
-
+            try{
+            	all.add(cast.get("Goal"));
+            }catch(IndexOutOfBoundsException e){
+            	System.out.println("Erro: " + e);
+            	all = new ArrayList<>();
+            }
         }
         return all;
     }
@@ -109,11 +144,20 @@ public class Cast extends HashMap<String, Character> {
             x++;
 
         }
-        obstacles.add(cast.get("Harbour"));
-        obstacles.add(cast.get("Island"));
+        try{
+        	obstacles.add(cast.get("Harbour"));
+        	obstacles.add(cast.get("Island"));
+        }catch(IndexOutOfBoundsException e){
+        	System.out.println("Erro: " + e);
+        	obstacles = new ArrayList<>();
+        }
         if (cast.containsKey("Goal")) {
-            obstacles.add(cast.get("Goal"));
-
+        	try{
+        		obstacles.add(cast.get("Goal"));
+        	}catch(IndexOutOfBoundsException e){
+            	System.out.println("Erro: " + e);
+            	obstacles = new ArrayList<>();
+            }
         }
 
         return obstacles;

@@ -17,6 +17,7 @@ import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 
+
 public class Factory {
 
     public Factory() {
@@ -58,9 +59,10 @@ public class Factory {
         boat.setLocation(location);
 
         Image[] boatImages = new Image[2];
+      
         boatImages[0] = Util.imageResources.get("BOAT");
         boatImages[1] = Util.imageResources.get("BOAT_EXPLODE");
-
+      
         SpriteImage boatSprite = new SpriteImage(boatImages, boat);
 
         
@@ -123,7 +125,8 @@ public class Factory {
     private Harbour createHarbour() {
 
 
-        Renderer renderer = Renderer.getInstance();
+        @SuppressWarnings("unused")
+		Renderer renderer = Renderer.getInstance();
 
 
         Harbour harbour = new Harbour();
@@ -156,8 +159,10 @@ public class Factory {
 
     private Island createIsland() {
 
-        GameEngine ge = GameEngine.getInstance();
-        Renderer renderer = Renderer.getInstance();
+        @SuppressWarnings("unused")
+		GameEngine ge = GameEngine.getInstance();
+        @SuppressWarnings("unused")
+		Renderer renderer = Renderer.getInstance();
 
 
         Island island = new Island();

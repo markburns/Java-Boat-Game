@@ -163,6 +163,7 @@ public class GameWindow extends javax.swing.JFrame {
 
         renderer.requestFocusInWindow();
         getInstance().go();
+        setEnergyBarLevel(100);
         this.jBtnStorm.setEnabled(true);        
     }
     
@@ -215,7 +216,7 @@ public class GameWindow extends javax.swing.JFrame {
 
 
     public void go() {
-
+    	
         gameEngine = GameEngine.getInstance();
         gameEngine.initialize();
 

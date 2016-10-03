@@ -34,7 +34,7 @@ public abstract class Moveable extends Character
         double y = getLocation().getY();
 
         //if over right side
-        if (x > w)
+        if (centreX > w)
         {
             getLocation().setX(w - this.getUntransformedArea().getBounds2D().getWidth());
             hitEdge = true;
