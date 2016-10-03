@@ -15,7 +15,8 @@ public class Boat extends Moveable {
     private int energy = 100;
 
     public void setEnergy(int energy) {
-        this.energy = energy;
+        assert(energy >= 0) : "Energy cant be negative";
+    	this.energy = energy;
     }
 
     public int getEnergy() {
@@ -65,13 +66,18 @@ public class Boat extends Moveable {
 
         double dy = dest.getY() - y();
         double dx = dest.getX() - x();
-
+        assert(dx < 1920 && dx > -1920) : "Error! Mouse bug";
+        assert(dy < 1080 && dy > -1080) : "Error! Mouse bug";  
+        //	System.out.println(dx);
+        //	System.out.println(dy);
         double destinationAngle = Math.atan2(dy, dx);
 
         AngledAcceleration mouseMove = (AngledAcceleration) getMoveBehaviour();
         double angleDelta = destinationAngle - mouseMove.getAngle();
 
         angleDelta = pinAngle(angleDelta);
+        System.out.println(angleDelta);
+        assert(angleDelta > -4 && angleDelta < 4 ) : "Angle cant be more than -4 or 4";
         
         if (Math.abs(angleDelta) < (Math.PI / 2.0)) {
             if ((angleDelta < Math.PI) && (angleDelta > 0)) {
@@ -180,8 +186,8 @@ public class Boat extends Moveable {
         if (controller.keyHeldEventsPending()) {
             int count = 0;
             while (count <= controller.getNumberOfHeldControls()) {
-                InputController.Control c = controller.getHeldControl(count);
-                processKeyPressRotating(c);
+                InputController.Control control = controller.getHeldControl(count);
+                processKeyPressRotating(control);
                 count++;
             }
         }

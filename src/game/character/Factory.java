@@ -23,7 +23,11 @@ public class Factory {
     }
 
     private Area createAreaFromLocations(int[] locations, GeneralPath generalPath) {
-        int count = 0;
+        
+    	assert(locations != null) : "There are no locations";
+    	assert(generalPath != null) : "No generalPath defined";
+    	
+    	int count = 0;
         int x = locations[count];;
         int y = locations[count + 1];
         generalPath.moveTo(x, y);
@@ -38,8 +42,8 @@ public class Factory {
         generalPath.closePath();
         Area area = new Area(generalPath);
 
-
-
+        assert(area != null) : "Area is null";
+        
         return area;
     }
 
@@ -59,7 +63,7 @@ public class Factory {
 
         SpriteImage boatSprite = new SpriteImage(boatImages, boat);
 
-        game.movement.Location l = boat.getLocation();
+        
         boatSprite.setTransformation(x, y, Util.getBoatArea(boatImages[0]));
 
 
@@ -74,11 +78,14 @@ public class Factory {
         //Add a swaying motion to the boat
         Movement swayMove = new Swaying((AngledAcceleration) move, 0, 0, Math.random(), boat, 0.2, 0.3);
         boat.setMoveBehaviour(swayMove);
+        
+        assert(boat != null): "Boat is null!";
+        
         return boat;
     }
 
     private EnemyBoat createComputerBoat() {
-
+    	
         EnemyBoat computerBoat = new EnemyBoat();
 
 
@@ -108,6 +115,8 @@ public class Factory {
         Movement computerBoatMove = Util.angledAccelerationPresets();
         computerBoat.setMoveBehaviour(computerBoatMove);
 
+        assert(computerBoat != null) : "computerBoat is null!";
+        
         return computerBoat;
     }
 
@@ -140,6 +149,8 @@ public class Factory {
 
         harbour.setSprite(harbourSprite);
 
+        assert(harbour != null) : "Harbour is null!";
+        
         return harbour;
     }
 
@@ -171,6 +182,8 @@ public class Factory {
 
         island.setSprite(islandSprite);
 
+        assert(island != null) : "Island is null!";
+        
         return island;
 
     }
@@ -208,6 +221,8 @@ public class Factory {
         octopusSprite.setShowSprite(true);
         octopus.setSprite(octopusSprite);
 
+        assert(octopus != null) : "Octopus is null!";
+        
         return octopus;
 
     }
@@ -236,6 +251,8 @@ public class Factory {
 
         goal.setSprite(goalSprite);
 
+        assert(goal != null) : "goal is null";
+        
         return goal;
 
     }
@@ -264,6 +281,8 @@ public class Factory {
 
         buoy.setSprite(sprite);
 
+        assert(buoy != null) : "buoy is null!";
+        
         return buoy;
 
     }
@@ -297,6 +316,8 @@ public class Factory {
 
         }
 
+        assert(character != null) : "character is null!";
+        
         return character;
     }
 }

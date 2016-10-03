@@ -34,7 +34,6 @@ public class Cast extends HashMap<String, Character> {
         ArrayList<Character> charactersMoving = new ArrayList<>();
 
         charactersMoving.add(cast.get("Boat"));
-        Character c;
         int x = 0;
 
         boolean finished = false;
