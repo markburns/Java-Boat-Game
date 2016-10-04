@@ -35,6 +35,7 @@ public class Obstacle extends Character
     @Override
     public void collide()
     {
+    	
     }
 	public double getAngMomentum() {
 		return angMomentum;

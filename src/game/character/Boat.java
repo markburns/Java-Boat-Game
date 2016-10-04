@@ -9,17 +9,24 @@ import game.sprite.Sprite;
 import game.Util;
 import java.awt.geom.*;
 
-public class Boat extends Moveable {
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
+public class Boat extends Moveable {
+	static Logger logging = Logger.getLogger(Boat.class);
+	
+	
     Location pivotPoint;
     private int energy = 100;
 
     public void setEnergy(int energy) {
         assert(energy >= 0) : "Energy cant be negative";
+        logging.debug("setEnergy value: " + energy);
     	this.energy = energy;
     }
 
     public int getEnergy() {
+    	logging.debug("getEnergy value: " + energy);
         return energy;
     }
 
@@ -40,6 +47,7 @@ public class Boat extends Moveable {
     }
 
     public void collision(Character character) {
+    	logging.debug("Reducing energy, collision");
         reduceEnergy();
     }
 
@@ -60,6 +68,8 @@ public class Boat extends Moveable {
     }
 
     private void processMouse() {
+    	logging.setLevel(Level.INFO);
+    	
         Point2D point = this.getController().getMouseLocation(); //mouse pointing
 
         Location dest = new Location(point.getX(), point.getY()); //game coordinates
@@ -68,15 +78,15 @@ public class Boat extends Moveable {
         double dx = dest.getX() - x();
         assert(dx < 1920 && dx > -1920) : "Error! Mouse bug";
         assert(dy < 1080 && dy > -1080) : "Error! Mouse bug";  
-        //	System.out.println(dx);
-        //	System.out.println(dy);
+        logging.debug("dx click:" + dx);
+        logging.debug("dy click:" + dy);
         double destinationAngle = Math.atan2(dy, dx);
 
         AngledAcceleration mouseMove = (AngledAcceleration) getMoveBehaviour();
         double angleDelta = destinationAngle - mouseMove.getAngle();
 
         angleDelta = pinAngle(angleDelta);
-        System.out.println(angleDelta);
+        logging.debug("mouse angle:" + angleDelta);
         assert(angleDelta > -4 && angleDelta < 4 ) : "Angle cant be more than -4 or 4";
         
         if (Math.abs(angleDelta) < (Math.PI / 2.0)) {
@@ -112,7 +122,9 @@ public class Boat extends Moveable {
 
     @SuppressWarnings("unused")
 	private void processKeyPressSquare(InputController.Control keypress) {
-        switch (keypress) {
+    	
+    	logging.debug("keypressed: " + keypress);
+    	switch (keypress) {
             case UP:
                 setLocation(getMoveBehaviour().goUp(getLocation()));
 
@@ -143,7 +155,8 @@ public class Boat extends Moveable {
     }
 
     private void processKeyPressRotating(InputController.Control keypress) {
-    	
+    	logging.setLevel(Level.INFO);
+    	logging.debug("keypressed: " + keypress);
     	try{
     	switch (keypress) {
             case UP:

@@ -8,7 +8,11 @@ import game.character.Character;
 public class ControlPanel extends javax.swing.JPanel
 {
     
-    private double accelerationScale=0.1;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private double accelerationScale=0.1;
     private double maxVelocityScale=3.0;
     
     private double frictionScale=0.05;

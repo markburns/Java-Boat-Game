@@ -6,9 +6,12 @@ import game.sprite.SpriteImage;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.apache.log4j.Logger;
+
 public abstract class Moveable extends Character
 {
-
+	
+	static Logger logging = Logger.getLogger(Moveable.class);
     protected boolean immune = false; //boolean that sets player to receive damage
     Renderer renderer = Renderer.getInstance();
 
@@ -27,34 +30,38 @@ public abstract class Moveable extends Character
         double h = (double) renderer.getHeight();
         double w = (double) renderer.getWidth();
 
-        double centreX = getSprite().getTransformedArea().getBounds().getCenterX();
+        @SuppressWarnings("unused")
+		double centreX = getSprite().getTransformedArea().getBounds().getCenterX();
         double centreY = getSprite().getTransformedArea().getBounds().getCenterY();
 
         double x = getLocation().getX();
         double y = getLocation().getY();
 
-        //if over right side
-        if (centreX > w)
+//if over right side
+        if (x > w)
         {
+        	logging.debug("right side hit");
             getLocation().setX(w - this.getUntransformedArea().getBounds2D().getWidth());
             hitEdge = true;
         }
 //if gone over bottom
         if (centreY > h)
         {
+        	logging.debug("bottom side hit");
             getLocation().setY(h - this.getUntransformedArea().getBounds2D().getHeight());
             hitEdge = true;
         }
 //if gone over left
         if (x < 0.0)
         {
+        	logging.debug("left side hit");
             getLocation().setX(0);
             hitEdge = true;
         }
 //if gone over top
         if (y < 0.0)
         {
-
+        	logging.debug("top side hit");
             getLocation().setY(0);
             hitEdge = true;
         }

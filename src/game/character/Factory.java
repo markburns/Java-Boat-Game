@@ -17,9 +17,12 @@ import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 
+import org.apache.log4j.Logger;
+
 
 public class Factory {
-
+	
+	static Logger logging = Logger.getLogger(Factory.class);
     public Factory() {
     }
 
@@ -82,7 +85,7 @@ public class Factory {
         boat.setMoveBehaviour(swayMove);
         
         assert(boat != null): "Boat is null!";
-        
+        logging.info("Boat created!");
         return boat;
     }
 
@@ -118,7 +121,7 @@ public class Factory {
         computerBoat.setMoveBehaviour(computerBoatMove);
 
         assert(computerBoat != null) : "computerBoat is null!";
-        
+        logging.info("Computer boat created!");
         return computerBoat;
     }
 
@@ -153,6 +156,7 @@ public class Factory {
         harbour.setSprite(harbourSprite);
 
         assert(harbour != null) : "Harbour is null!";
+        logging.info("Harbour created!");
         
         return harbour;
     }
@@ -188,6 +192,7 @@ public class Factory {
         island.setSprite(islandSprite);
 
         assert(island != null) : "Island is null!";
+        logging.info("Island created!");
         
         return island;
 
@@ -227,6 +232,7 @@ public class Factory {
         octopus.setSprite(octopusSprite);
 
         assert(octopus != null) : "Octopus is null!";
+        logging.info("Octopus created!");
         
         return octopus;
 
@@ -257,6 +263,7 @@ public class Factory {
         goal.setSprite(goalSprite);
 
         assert(goal != null) : "goal is null";
+        logging.info("goal created!");
         
         return goal;
 
@@ -287,6 +294,7 @@ public class Factory {
         buoy.setSprite(sprite);
 
         assert(buoy != null) : "buoy is null!";
+        logging.info("Buoy created!");
         
         return buoy;
 
