@@ -7,13 +7,14 @@ import org.apache.log4j.Logger;
 
 public class Cast extends HashMap<String, Character> {
 	
-    /**
-	 * 
-	 */
 	static Logger logging = Logger.getLogger(Cast.class);
 	private static final long serialVersionUID = 1L;
-	private static Cast cast;
+	private static Cast cast = null;
 
+	/*
+	 * function that starts a game instance
+	 * @return cast  game environment
+	 */
     public static Cast getInstance() {
         if (cast != null) {
         	logging.info("cast returned");
@@ -31,8 +32,12 @@ public class Cast extends HashMap<String, Character> {
         return cast;
     }
 
+    /*
+     * sets the boat to vulnerable mode
+     * @return isVulnerable boolean that defines the vulnerability of the boat
+     */
     public boolean boatIsVulnerable() {
-    	boolean isVulnerable;
+    	boolean isVulnerable = false;
     	try{
     		isVulnerable = ((Boat) cast.get("Boat")).immune == false;
     					
@@ -43,12 +48,19 @@ public class Cast extends HashMap<String, Character> {
     	logging.debug("isVulnerable: " + isVulnerable);
         return  isVulnerable;
     }
-
+    
+    /*
+     *sets the boat to immunity mode
+     */
     public void setBoatImmune() {
         ((Boat) cast.get("Boat")).immune = true;
         logging.info("boat is immune");
     }
 
+    /*
+     * load the moving characters
+     * @return charactersMoving  array of characters that were loaded
+     */
     public ArrayList<Character> getMovingCharacters() {
 
         ArrayList<Character> charactersMoving = new ArrayList<>();
@@ -76,12 +88,19 @@ public class Cast extends HashMap<String, Character> {
 
         return charactersMoving;
     }
-
+    
+    /*
+     * resets the board
+     */
     public static void reset() {
         cast = null;
         logging.info("Resetting");
     }
 
+    /*
+     * loads all the environment
+     * @return all  arraylist that contains all environment of the board
+     */
     public ArrayList<Character> getAllCharacters() {
 
 
@@ -148,6 +167,10 @@ public class Cast extends HashMap<String, Character> {
         return all;
     }
 
+    /*
+     * loads the obstacles
+     * @return obstacles   obstacles that were loaded
+     */
     public ArrayList<Character> getObstacles() {
     	/* logging set to info to avoid loop of creation
     		(objects are re-created every second)

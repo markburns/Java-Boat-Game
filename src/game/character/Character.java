@@ -14,10 +14,10 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 public abstract class Character {
-	static Logger logging = Logger.getLogger(Character.class);
-    private Location myLocation;
-    private Movement moveBehaviour;
-    private Sprite sprite;
+	static Logger logging = Logger.getLogger(Character.class); //basic log system
+    private Location myLocation = null; //location X Y of the character main boat
+    private Movement moveBehaviour = null; // behaviour of the movement
+    private Sprite sprite = null; // sets the hitbox of the character boat
     private InputController controller = InputController.getInstance();
 
     public abstract void collide();

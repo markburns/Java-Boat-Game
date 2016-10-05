@@ -16,20 +16,31 @@ public class Boat extends Moveable {
 	static Logger logging = Logger.getLogger(Boat.class);
 	
 	
-    Location pivotPoint;
-    private int energy = 100;
+    Location pivotPoint = null; //sets the x y point to the boat
+    private int energy = 100; //energy of the boat
 
+    /*
+     * function that sets the energy of the boat
+     * @param energy
+     */
     public void setEnergy(int energy) {
         assert(energy >= 0) : "Energy cant be negative";
         logging.debug("setEnergy value: " + energy);
     	this.energy = energy;
     }
 
+    /*
+     * function that returns the energy of the boat
+     * @return energy   the energy of the boat
+     */
     public int getEnergy() {
     	logging.debug("getEnergy value: " + energy);
         return energy;
     }
 
+    /*
+     * method that reduce energy of the boat
+     */
     private void reduceEnergy() {
         int reduceEnergy = getEnergy(); //auxiliary int for reducing energy
         reduceEnergy--;
@@ -46,14 +57,25 @@ public class Boat extends Moveable {
 
     }
 
+    /*
+     * function that reduces energy after collision
+     * @param character   boat that is defined as a player
+     */
     public void collision(Character character) {
     	logging.debug("Reducing energy, collision");
         reduceEnergy();
     }
-
+    /*
+     * basic constructor
+     */
     public Boat() {
     }
 
+    /*
+     * function that sets the angle that the boat is navigating
+     * @param value  initial angle of the boat
+     * @return value  new angle defined by function
+     */
     private double pinAngle(double value) {
         if (Math.abs(value) > Math.PI) {
             while (value > Math.PI) {
@@ -66,7 +88,11 @@ public class Boat extends Moveable {
         return value;
 
     }
-
+    
+    
+    /*
+     * function that processes mouse click
+     */
     private void processMouse() {
     	logging.setLevel(Level.INFO);
     	
@@ -119,7 +145,7 @@ public class Boat extends Moveable {
 
 
     }
-
+    
     @SuppressWarnings("unused")
 	private void processKeyPressSquare(InputController.Control keypress) {
     	
@@ -153,7 +179,11 @@ public class Boat extends Moveable {
         }
 
     }
-
+    
+    /*
+     * function that processes the WASD and arrows controllers
+     * @param keypress   key pressed by player
+     */
     private void processKeyPressRotating(InputController.Control keypress) {
     	logging.setLevel(Level.INFO);
     	logging.debug("keypressed: " + keypress);
@@ -189,7 +219,10 @@ public class Boat extends Moveable {
     	}
     	
     }
-
+    /*
+     * (non-Javadoc)
+     * @see game.character.Moveable#update()
+     */
     @Override
     public void update() {
         InputController controller = getController();
@@ -228,6 +261,10 @@ public class Boat extends Moveable {
                 .updateControlPanel(this);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see game.character.Character#setSprite(game.sprite.Sprite)
+     */
     @Override
     public void setSprite(Sprite sprite) {
         super.setSprite(sprite);
