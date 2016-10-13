@@ -36,7 +36,7 @@ public class Cast extends HashMap<String, Character> {
      * sets the boat to vulnerable mode
      * @return isVulnerable boolean that defines the vulnerability of the boat
      */
-    public boolean boatIsVulnerable() {
+    public boolean setBoatVulnerable() {
     	boolean isVulnerable = false;
     	try{
     		isVulnerable = ((Boat) cast.get("Boat")).immune == false;

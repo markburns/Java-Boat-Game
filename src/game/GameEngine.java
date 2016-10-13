@@ -156,7 +156,7 @@ public class GameEngine implements Runnable {
     }
 
     private void endGame(String message) {
-        if (cast.boatIsVulnerable()) {
+        if (cast.setBoatVulnerable()) {
             javax.swing.JOptionPane.showMessageDialog(null, message);
             cast.setBoatImmune();
 
