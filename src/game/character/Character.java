@@ -10,8 +10,11 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.util.ArrayList;
 
-public abstract class Character {
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
+public abstract class Character {
+	static Logger logging = Logger.getLogger(Character.class);
     private Location myLocation;
     private Movement moveBehaviour;
     private Sprite sprite;
@@ -88,13 +91,13 @@ public abstract class Character {
 
     }
         
-    public boolean collides(Character c) {
-        if (c.equals(this)) {
+    public boolean collides(Character character) {
+        if (character.equals(this)) {
             return false;
         }
 
         Area intersectArea = new Area(getTransformedArea());
-        Area b = c.getTransformedArea();
+        Area b = character.getTransformedArea();
 
         intersectArea.intersect(b);
 
@@ -105,7 +108,7 @@ public abstract class Character {
         return sprite.getTransformedArea();
     }
 
-    public void collide(Character c) {
+    public void collide(Character character) {
     }
 
     /**
@@ -119,10 +122,10 @@ public abstract class Character {
 
         int length = moving.size();
         for (int i = 0; i < length; i++) {
-            Character c = moving.get(i);
+            Character character = moving.get(i);
 
-            if (collision = collides(c)) {
-                c.collide();
+            if (collision = collides(character)) {
+                character.collide();
             }
         }
 
@@ -142,6 +145,9 @@ public abstract class Character {
     }
 
     public void setLocation(Location location) {
+    	//set to info to avoid loop (location is re-created once a second)
+    	logging.setLevel(Level.INFO);
+    	logging.debug("location set " + location.getX() + " " + location.getY());
         myLocation = location;
 
     }

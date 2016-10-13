@@ -17,17 +17,23 @@ import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 
-public class Factory {
+import org.apache.log4j.Logger;
 
+
+public class Factory {
+	
+	static Logger logging = Logger.getLogger(Factory.class);
     public Factory() {
     }
 
     private Area createAreaFromLocations(int[] locations, GeneralPath generalPath) {
-        int count = 0;
-        int x;
-        int y;
-        x = locations[count];
-        y = locations[count + 1];
+        
+    	assert(locations != null) : "There are no locations";
+    	assert(generalPath != null) : "No generalPath defined";
+    	
+    	int count = 0;
+        int x = locations[count];;
+        int y = locations[count + 1];
         generalPath.moveTo(x, y);
         count += 2;
         while (count < locations.length) {
@@ -40,8 +46,8 @@ public class Factory {
         generalPath.closePath();
         Area area = new Area(generalPath);
 
-
-
+        assert(area != null) : "Area is null";
+        
         return area;
     }
 
@@ -56,12 +62,13 @@ public class Factory {
         boat.setLocation(location);
 
         Image[] boatImages = new Image[2];
+      
         boatImages[0] = Util.imageResources.get("BOAT");
         boatImages[1] = Util.imageResources.get("BOAT_EXPLODE");
-
+      
         SpriteImage boatSprite = new SpriteImage(boatImages, boat);
 
-        game.movement.Location l = boat.getLocation();
+        
         boatSprite.setTransformation(x, y, Util.getBoatArea(boatImages[0]));
 
 
@@ -74,13 +81,16 @@ public class Factory {
         Movement move = Util.getBoatMovePresets();
 
         //Add a swaying motion to the boat
-        Movement m = new Swaying((AngledAcceleration) move, 0, 0, Math.random(), boat, 0.2, 0.3);
-        boat.setMoveBehaviour(m);
+        Movement swayMove = new Swaying((AngledAcceleration) move, 0, 0, Math.random(), boat, 0.2, 0.3);
+        boat.setMoveBehaviour(swayMove);
+        
+        assert(boat != null): "Boat is null!";
+        logging.info("Boat created!");
         return boat;
     }
 
     private EnemyBoat createComputerBoat() {
-
+    	
         EnemyBoat computerBoat = new EnemyBoat();
 
 
@@ -110,13 +120,16 @@ public class Factory {
         Movement computerBoatMove = Util.angledAccelerationPresets();
         computerBoat.setMoveBehaviour(computerBoatMove);
 
+        assert(computerBoat != null) : "computerBoat is null!";
+        logging.info("Computer boat created!");
         return computerBoat;
     }
 
     private Harbour createHarbour() {
 
 
-        Renderer renderer = Renderer.getInstance();
+        @SuppressWarnings("unused")
+		Renderer renderer = Renderer.getInstance();
 
 
         Harbour harbour = new Harbour();
@@ -132,23 +145,28 @@ public class Factory {
         harbour.setLocation(new Location(0, 0));
 
         harbourSprite.setUntransformedArea(area);
-        AffineTransform t = new AffineTransform();
-        t.setToTranslation(0, 0);
-        harbourSprite.setTransform(t);
-        harbourSprite.setTransformedArea(area.createTransformedArea(t));
+        AffineTransform transform = new AffineTransform();
+        transform.setToTranslation(0, 0);
+        harbourSprite.setTransform(transform);
+        harbourSprite.setTransformedArea(area.createTransformedArea(transform));
 
         harbourSprite.setShowSprite(false);
 
 
         harbour.setSprite(harbourSprite);
 
+        assert(harbour != null) : "Harbour is null!";
+        logging.info("Harbour created!");
+        
         return harbour;
     }
 
     private Island createIsland() {
 
-        GameEngine ge = GameEngine.getInstance();
-        Renderer renderer = Renderer.getInstance();
+        @SuppressWarnings("unused")
+		GameEngine ge = GameEngine.getInstance();
+        @SuppressWarnings("unused")
+		Renderer renderer = Renderer.getInstance();
 
 
         Island island = new Island();
@@ -162,17 +180,20 @@ public class Factory {
         Area area = createAreaFromLocations(locations, generalPath);
 
         islandSprite.setUntransformedArea(area);
-        AffineTransform t = new AffineTransform();
-        t.setToIdentity();
-        islandSprite.setTransform(t);
+        AffineTransform transform = new AffineTransform();
+        transform.setToIdentity();
+        islandSprite.setTransform(transform);
 
-        islandSprite.setTransformedArea(area.createTransformedArea(t));
+        islandSprite.setTransformedArea(area.createTransformedArea(transform));
 
         islandSprite.setShowSprite(false);
 
 
         island.setSprite(islandSprite);
 
+        assert(island != null) : "Island is null!";
+        logging.info("Island created!");
+        
         return island;
 
     }
@@ -200,16 +221,19 @@ public class Factory {
         octopus.setMoveBehaviour(move);
 
         octopusSprite.setUntransformedArea(area);
-        AffineTransform t = new AffineTransform();
+        AffineTransform transform = new AffineTransform();
 
-        t.setToIdentity();
+        transform.setToIdentity();
 
-        octopusSprite.setTransform(t);
-        octopusSprite.setTransformedArea(area.createTransformedArea(t));
+        octopusSprite.setTransform(transform);
+        octopusSprite.setTransformedArea(area.createTransformedArea(transform));
         octopusSprite.setSqueezeImageIntoTransformedArea(true);
         octopusSprite.setShowSprite(true);
         octopus.setSprite(octopusSprite);
 
+        assert(octopus != null) : "Octopus is null!";
+        logging.info("Octopus created!");
+        
         return octopus;
 
     }
@@ -227,17 +251,20 @@ public class Factory {
         Area area = new Area(new Rectangle(0, 0, 100, 50));
 
         goalSprite.setUntransformedArea(area);
-        AffineTransform t = new AffineTransform();
-        t.setToTranslation(renderer.getWidth() - 100, renderer.getHeight() - 50);
-        goalSprite.setTransform(t);
+        AffineTransform transform = new AffineTransform();
+        transform.setToTranslation(renderer.getWidth() - 100, renderer.getHeight() - 50);
+        goalSprite.setTransform(transform);
 
-        goalSprite.setTransformedArea(area.createTransformedArea(t));
+        goalSprite.setTransformedArea(area.createTransformedArea(transform));
 
         goalSprite.setShowSprite(true);
 
 
         goal.setSprite(goalSprite);
 
+        assert(goal != null) : "goal is null";
+        logging.info("goal created!");
+        
         return goal;
 
     }
@@ -254,18 +281,21 @@ public class Factory {
         Movement sway = new game.movement.Swaying(null, randomX, randomY, randomY, buoy, 1, 2);
         buoy.setMoveBehaviour(sway);
         int size = Util.getObstacleSize();
-        Area a = new Area(new java.awt.geom.Ellipse2D.Double(randomX - size / 2, randomY - size / 2, size, size));
-        sprite.setUntransformedArea(a);
-        AffineTransform t = new AffineTransform();
-        t.setToTranslation(randomX, randomY);
+        Area area = new Area(new java.awt.geom.Ellipse2D.Double(randomX - size / 2, randomY - size / 2, size, size));
+        sprite.setUntransformedArea(area);
+        AffineTransform transform = new AffineTransform();
+        transform.setToTranslation(randomX, randomY);
 
-        sprite.setTransformedArea(a);
+        sprite.setTransformedArea(area);
         sprite.setShowSprite(true);
         sprite.setHeight(size);
         sprite.setWidth(size);
 
         buoy.setSprite(sprite);
 
+        assert(buoy != null) : "buoy is null!";
+        logging.info("Buoy created!");
+        
         return buoy;
 
     }
@@ -299,6 +329,8 @@ public class Factory {
 
         }
 
+        assert(character != null) : "character is null!";
+        
         return character;
     }
 }

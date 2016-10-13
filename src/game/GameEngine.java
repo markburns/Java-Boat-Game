@@ -61,14 +61,14 @@ public class GameEngine implements Runnable {
     }
 
     private Character addCharacter(String name, String type) {
-        Character c = create(type);
-        cast.put(name, c);
-        return c;
+        Character character = create(type);
+        cast.put(name, character);
+        return character;
     }
 
     private Character create(String type) {
-        Character c = factory().createCharacter(type);
-        return c;
+        Character character = factory().createCharacter(type);
+        return character;
     }
 
     private void setupObstacles() {
@@ -173,18 +173,23 @@ public class GameEngine implements Runnable {
 
             int x = obstacles.size();
             for (int i = 0; i < x; i++) {
-                Character c = obstacles.get(i);
+                Character character = obstacles.get(i);
 
-                c.update();
-                c.detectCollision(moving);
+                character.update();
+                character.detectCollision(moving);
             }
             
             x = moving.size();
             
             for (int i = 0; i < x; i++) {
-                Character c = moving.get(i);
-                c.update();
-                c.detectCollision(moving);
+                try{
+            		Character character = moving.get(i);
+            		character.update();
+            		character.detectCollision(moving);
+                }catch(NullPointerException|IndexOutOfBoundsException e){
+                	assert(true);
+                	e.printStackTrace();
+                }
             }
 
             renderer.repaint();
