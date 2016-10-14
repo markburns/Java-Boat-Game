@@ -203,7 +203,7 @@ public class Cast extends HashMap<String, Character> {
             	obstacles = new ArrayList<>();
             }
         }
-
+        assert(obstacles != null) : "obstacles are null";
         return obstacles;
     }
 }

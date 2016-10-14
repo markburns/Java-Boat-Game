@@ -35,6 +35,7 @@ public class Boat extends Moveable {
      */
     public int getEnergy() {
     	logging.debug("getEnergy value: " + energy);
+    	assert(energy >= 0) :"Energy is negative";
         return energy;
     }
 
@@ -85,6 +86,8 @@ public class Boat extends Moveable {
                 value = value + (2 * Math.PI);
             }
         }
+        assert(value < value + Math.PI && value > value - Math.PI) : "value is out" +
+        		"of limits";
         return value;
 
     }

@@ -23,30 +23,37 @@ public abstract class Character {
     public abstract void collide();
 
     public Location getLocation() {
+    	assert(myLocation != null) : "myLocation is null";
         return myLocation;
     }
 
     public double getX() {
+    	assert(myLocation.getX() != 0) : "getX() is 0";
         return myLocation.getX();
     }
 
     public double getY() {
+    	assert(myLocation.getX() != 0) : "getY() is 0";
         return myLocation.getY();
     }
 
     public double centreY() {
+    	assert(getHeight() != 0) : "getHeight() is 0";
         return getHeight() / 2;
     }
 
     public double centreX() {
+    	assert(getWidth() != 0) : "getWidth() is 0";
         return getWidth() / 2;
     }
 
     public double getHeight() {
+    	assert(getBounds().getHeight() != 0) : "getBounds.getHeight() is 0";
         return getBounds().getHeight();
     }
 
     public double getWidth() {
+    	assert(getBounds().getWidth() != 0) : "getBounds.get.Widht() is 0";
         return getBounds().getWidth();
     }
 
