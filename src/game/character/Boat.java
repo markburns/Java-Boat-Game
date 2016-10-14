@@ -18,6 +18,11 @@ public class Boat extends Moveable {
 	
     Location pivotPoint = null; //sets the x y point to the boat
     private int energy = 100; //energy of the boat
+    final int PIMULTIPLICATION = 2;//Double the value of pi for mathematics purpose
+    final int MAXMOUSERANGE = 1920;
+    final int MINMOUSERANGE = 1080;
+    final int MAXANGLE = 4;
+    final int SLOWMOUSESPEED = 0.95;
 
     /*
      * function that sets the energy of the boat
@@ -79,10 +84,10 @@ public class Boat extends Moveable {
     private double pinAngle(double value) {
         if (Math.abs(value) > Math.PI) {
             while (value > Math.PI) {
-                value = value - (2 * Math.PI);
+                value = value - (PIMULTIPLICATION * Math.PI);
             }
             while (value < -Math.PI) {
-                value = value + (2 * Math.PI);
+                value = value + (PIMULTIPLICATION * Math.PI);
             }
         }
         return value;
@@ -102,8 +107,8 @@ public class Boat extends Moveable {
 
         double dy = dest.getY() - y();
         double dx = dest.getX() - x();
-        assert(dx < 1920 && dx > -1920) : "Error! Mouse bug";
-        assert(dy < 1080 && dy > -1080) : "Error! Mouse bug";  
+        assert(dx < MAXMOUSERANGE && dx > -MAXMOUSERANGE) : "Error! Mouse bug";
+        assert(dy < MINMOUSERANGE && dy > -MINMOUSERANGE) : "Error! Mouse bug";  
         logging.debug("dx click:" + dx);
         logging.debug("dy click:" + dy);
         double destinationAngle = Math.atan2(dy, dx);
@@ -113,7 +118,7 @@ public class Boat extends Moveable {
 
         angleDelta = pinAngle(angleDelta);
         logging.debug("mouse angle:" + angleDelta);
-        assert(angleDelta > -4 && angleDelta < 4 ) : "Angle cant be more than -4 or 4";
+        assert(angleDelta > -MAXANGLE && angleDelta < MAXANGLE ) : "Angle cant be more than -4 or 4";
         
         if (Math.abs(angleDelta) < (Math.PI / 2.0)) {
             if ((angleDelta < Math.PI) && (angleDelta > 0)) {
@@ -126,7 +131,7 @@ public class Boat extends Moveable {
             //accelerate
             setLocation(mouseMove.goUp(getLocation()));
         } else {
-            mouseMove.setVelocity(mouseMove.getVelocity() * 0.95);
+            mouseMove.setVelocity(mouseMove.getVelocity() * SLOWMOUSESPEED);
 
             if ((angleDelta > 0)) {
 
