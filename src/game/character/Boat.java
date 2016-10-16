@@ -40,6 +40,7 @@ public class Boat extends Moveable {
      */
     public int getEnergy() {
     	logging.debug("getEnergy value: " + energy);
+    	assert(energy >= 0) :"Energy is negative";
         return energy;
     }
 
@@ -89,7 +90,11 @@ public class Boat extends Moveable {
             while (value < -Math.PI) {
                 value = value + (PIMULTIPLICATION * Math.PI);
             }
+        }else{
+        	//do nothing
         }
+        assert(value < value + Math.PI && value > value - Math.PI) : "value is out" +
+        		"of limits";
         return value;
 
     }
@@ -123,10 +128,10 @@ public class Boat extends Moveable {
         if (Math.abs(angleDelta) < (Math.PI / 2.0)) {
             if ((angleDelta < Math.PI) && (angleDelta > 0)) {
                 setLocation(mouseMove.goRight(getLocation()));
-            }
-
-            if ((angleDelta < 0) && (angleDelta > -Math.PI)) {
+            } else if ((angleDelta < 0) && (angleDelta > -Math.PI)) {
                 setLocation(mouseMove.goLeft(getLocation()));
+            }else{
+            	//do nothing
             }
             //accelerate
             setLocation(mouseMove.goUp(getLocation()));
@@ -136,10 +141,10 @@ public class Boat extends Moveable {
             if ((angleDelta > 0)) {
 
                 setLocation(mouseMove.goRight(getLocation()));
-            }
-
-            if ((angleDelta < 0)) {
+            }else if ((angleDelta < 0)) {
                 setLocation(mouseMove.goLeft(getLocation()));
+            }else{
+            	//do nothing
             }
 
         }
@@ -250,16 +255,22 @@ public class Boat extends Moveable {
                 processKeyPressRotating(control);
                 count++;
             }
+        }else{
+        	//do nothing
         }
 
         if (controller.isMouseHeld()) {
             processMouse();
+        }else{
+        	//do nothing
         }
 
         setTransform(pivotPoint);
 
         if (checkScreenEdge()) {
             this.getMoveBehaviour().setVelocity(getMoveBehaviour().getVelocity() / 10);
+        }else{
+        	//do nothing
         }
 
         GameWindow.getInstance()

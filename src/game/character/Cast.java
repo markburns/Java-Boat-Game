@@ -25,6 +25,8 @@ public class Cast extends HashMap<String, Character> {
                 if (cast == null) {
                 	logging.info("New cast created");
                     cast = new Cast();
+                }else{
+                	//do nothing
                 }
             }
 
@@ -133,6 +135,8 @@ public class Cast extends HashMap<String, Character> {
                 	logging.debug("Failed to add:" + e);
                 	all = new ArrayList<>();
                 }
+            }else{
+            	//do nothing
             }
         }
 
@@ -163,6 +167,8 @@ public class Cast extends HashMap<String, Character> {
             	logging.debug("Failed to add:" + e);
             	all = new ArrayList<>();
             }
+        }else{
+        	//do nothing
         }
         return all;
     }
@@ -202,8 +208,10 @@ public class Cast extends HashMap<String, Character> {
             	logging.debug("Erro:" + e);
             	obstacles = new ArrayList<>();
             }
+        }else{
+        	//do nothing
         }
-
+        assert(obstacles != null) : "obstacles are null";
         return obstacles;
     }
 }

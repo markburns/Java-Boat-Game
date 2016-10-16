@@ -23,30 +23,37 @@ public abstract class Character {
     public abstract void collide();
 
     public Location getLocation() {
+    	assert(myLocation != null) : "myLocation is null";
         return myLocation;
     }
 
     public double getX() {
+    	assert(myLocation.getX() > -100) : "getX() is negative";
         return myLocation.getX();
     }
 
     public double getY() {
+    	assert(myLocation.getY() > -100) : "getY() is negative";
         return myLocation.getY();
     }
 
     public double centreY() {
+    	assert(getHeight() > 0) : "getHeight() is negative";
         return getHeight() / 2;
     }
 
     public double centreX() {
+    	assert(getWidth() > 0) : "getWidth() is negative";
         return getWidth() / 2;
     }
 
     public double getHeight() {
+    	assert(getBounds().getHeight() > 0) : "getBounds.getHeight() is negative";
         return getBounds().getHeight();
     }
 
     public double getWidth() {
+    	assert(getBounds().getWidth() > 0) : "getBounds.get.Widht() is negative";
         return getBounds().getWidth();
     }
 
@@ -94,8 +101,10 @@ public abstract class Character {
     public boolean collides(Character character) {
         if (character.equals(this)) {
             return false;
+        }else{
+        	//do nothing
         }
-
+        
         Area intersectArea = new Area(getTransformedArea());
         Area b = character.getTransformedArea();
 
@@ -126,6 +135,8 @@ public abstract class Character {
 
             if (collision = collides(character)) {
                 character.collide();
+            }else{
+            	//do nothing
             }
         }
 
