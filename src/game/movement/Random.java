@@ -1,6 +1,8 @@
 
 package game.movement;
-
+	/*
+	 * This class determines the randomness of the AI objects movement
+	 */
 public class Random extends AngledAcceleration
 {
     

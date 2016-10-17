@@ -23,11 +23,11 @@ public class Swaying extends AngledAcceleration
     private double phase = 0.0;
     private double yOffset = 0.0;
     private double xOffset = 0.0;
-    private double randomPhase;
-    private double swaySizeHorizontal;
-    private double swaySizeVertical;
-    private double xAnchor;
-    private double yAnchor;
+    private double randomPhase = 0;
+    private double swaySizeHorizontal = 0;
+    private double swaySizeVertical = 0;
+    private double xAnchor = 0;
+    private double yAnchor = 0;
     
     public void setOwner(Character owner)
     {
@@ -48,6 +48,10 @@ public class Swaying extends AngledAcceleration
 	
 	phase += angMomentum;
 	
+		/*
+		 * this routines make the boat sway based if he is moving or not
+		 * if he's standing still, the sway tends to be a little larger
+		 */
 	if (move != null)
 	{
 	    double newX = (owner.getX() + xOffset * swaySizeHorizontal );
@@ -68,7 +72,11 @@ public class Swaying extends AngledAcceleration
 	}
 	
     }
-    
+    /*
+     * (non-Javadoc)
+     * @see game.movement.AngledAcceleration#goDown(game.movement.Location)
+     * set of functions that need to be overwritten for the swaying
+     */
     @Override
     public Location goDown(Location location)
     {
