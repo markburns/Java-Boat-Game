@@ -10,40 +10,50 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.util.ArrayList;
 
-public abstract class Character {
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
-    private Location myLocation;
-    private Movement moveBehaviour;
-    private Sprite sprite;
+public abstract class Character {
+	static Logger logging = Logger.getLogger(Character.class); //basic log system
+    private Location myLocation = null; //location X Y of the character main boat
+    private Movement moveBehaviour = null; // behaviour of the movement
+    private Sprite sprite = null; // sets the hitbox of the character boat
     private InputController controller = InputController.getInstance();
 
     public abstract void collide();
 
     public Location getLocation() {
+    	assert(myLocation != null) : "myLocation is null";
         return myLocation;
     }
 
     public double getX() {
+    	assert(myLocation.getX() > -100) : "getX() is negative";
         return myLocation.getX();
     }
 
     public double getY() {
+    	assert(myLocation.getY() > -100) : "getY() is negative";
         return myLocation.getY();
     }
 
     public double centreY() {
+    	assert(getHeight() > 0) : "getHeight() is negative";
         return getHeight() / 2;
     }
 
     public double centreX() {
+    	assert(getWidth() > 0) : "getWidth() is negative";
         return getWidth() / 2;
     }
 
     public double getHeight() {
+    	assert(getBounds().getHeight() > 0) : "getBounds.getHeight() is negative";
         return getBounds().getHeight();
     }
 
     public double getWidth() {
+    	assert(getBounds().getWidth() > 0) : "getBounds.get.Widht() is negative";
         return getBounds().getWidth();
     }
 
@@ -88,13 +98,15 @@ public abstract class Character {
 
     }
         
-    public boolean collides(Character c) {
-        if (c.equals(this)) {
+    public boolean collides(Character character) {
+        if (character.equals(this)) {
             return false;
+        }else{
+        	//do nothing
         }
-
+        
         Area intersectArea = new Area(getTransformedArea());
-        Area b = c.getTransformedArea();
+        Area b = character.getTransformedArea();
 
         intersectArea.intersect(b);
 
@@ -105,7 +117,7 @@ public abstract class Character {
         return sprite.getTransformedArea();
     }
 
-    public void collide(Character c) {
+    public void collide(Character character) {
     }
 
     /**
@@ -119,10 +131,12 @@ public abstract class Character {
 
         int length = moving.size();
         for (int i = 0; i < length; i++) {
-            Character c = moving.get(i);
+            Character character = moving.get(i);
 
-            if (collision = collides(c)) {
-                c.collide();
+            if (collision = collides(character)) {
+                character.collide();
+            }else{
+            	//do nothing
             }
         }
 
@@ -142,6 +156,9 @@ public abstract class Character {
     }
 
     public void setLocation(Location location) {
+    	//set to info to avoid loop (location is re-created once a second)
+    	logging.setLevel(Level.INFO);
+    	logging.debug("location set " + location.getX() + " " + location.getY());
         myLocation = location;
 
     }

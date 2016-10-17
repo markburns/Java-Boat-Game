@@ -8,10 +8,10 @@ import java.awt.image.ImageObserver;
 
 public class SpriteImage extends Sprite {
 
-    private Image[] images;
-    private int frame;
-    private Character owner;
-    private ImageObserver imageObserver;
+    private Image[] images = null;
+    private int frame = 0;
+    private Character owner = null;
+    private ImageObserver imageObserver = null;
 
     public Image[] getImages() {
         return images;
@@ -49,11 +49,6 @@ public class SpriteImage extends Sprite {
 
         Image img;
         img = getImages()[getFrame()];
-        int x, y;
-        x = (int) loc.getX();
-        y = (int) loc.getY();
-
-
         gg.setColor(new Color(255, 0, 0, 100));
         //gg.fill(this.getTransformedArea());
         Rectangle2D b = getTransformedArea().getBounds2D();

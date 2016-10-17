@@ -5,22 +5,22 @@ public class Movement {
     public Movement() {
     }
     
-    private double velocity;
-    private double xVelocity;
-    private double yVelocity;
+    private double velocity = 0;
+    private double xVelocity = 0;
+    private double yVelocity = 0;
     
-    private double acceleration;
+    private double acceleration = 0;
     
-    private double angularVelocity;
-    private double angle;
-    
-    
-    
-    private double maxVelocity;
+    private double angularVelocity = 0;
+    private double angle = 0;
     
     
-    private double angularMaxVelocity;
-    private double angularAcceleration;
+    
+    private double maxVelocity = 0;
+    
+    
+    private double angularMaxVelocity = 0;
+    private double angularAcceleration= 0;
     
     
 

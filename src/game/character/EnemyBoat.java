@@ -19,7 +19,7 @@ public class EnemyBoat extends Moveable
     int randomLength = 0;
     int turnDuration = 15;
     boolean changeDirection = false;
-    int i;
+    int i = 0;
 
     @Override
     public void update()
@@ -64,8 +64,8 @@ public class EnemyBoat extends Moveable
         setLocation(getMoveBehaviour().go(getLocation()));
 
 
-        Rectangle2D b = this.getSprite().getUntransformedArea().getBounds2D();
-        setTransform(new Location(b.getCenterX(), b.getCenterY()));
+        Rectangle2D enemyBoat = this.getSprite().getUntransformedArea().getBounds2D();
+        setTransform(new Location(enemyBoat.getCenterX(), enemyBoat.getCenterY()));
         if (checkScreenEdge())
         {
             getMoveBehaviour().setAngle(Math.PI + this.getMoveBehaviour().getAngle());
@@ -78,15 +78,15 @@ public class EnemyBoat extends Moveable
     @Override
     public void collide()
     {
-        Movement m = getMoveBehaviour();
-//		m.setAngle(Math.random() + m.getAngle());
-        m.setVelocity(m.getVelocity() * 0.99);
+        Movement moveAction = getMoveBehaviour();
+//		moveAction.setAngle(Math.random() + moveAction.getAngle());
+        moveAction.setVelocity(moveAction.getVelocity() * 0.99);
         double random = Math.random();
         if (random > 0.5)
         {
             for (int x = 1; x < 10; x++)
             {
-                setLocation(m.goRight(getLocation()));
+                setLocation(moveAction.goRight(getLocation()));
             }
 
         }
@@ -94,13 +94,13 @@ public class EnemyBoat extends Moveable
         {
             for (int x = 1; x < 10; x++)
             {
-                setLocation(m.goLeft(getLocation()));
+                setLocation(moveAction.goLeft(getLocation()));
             }
 
         }
         for (int x = 1; x < 3; x++)
         {
-            setLocation(m.goUp(getLocation()));
+            setLocation(moveAction.goUp(getLocation()));
         }
     }
 }

@@ -4,8 +4,14 @@ import game.character.Boat;
 import game.character.Character;
 import java.awt.event.*;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
+@SuppressWarnings("serial")
 public class GameWindow extends javax.swing.JFrame {
 
+	static Logger logging = Logger.getLogger(GameWindow.class);
     private GameEngine gameEngine;
     private static GameWindow window;
     Thread thread;
@@ -163,6 +169,7 @@ public class GameWindow extends javax.swing.JFrame {
 
         renderer.requestFocusInWindow();
         getInstance().go();
+        setEnergyBarLevel(100);
         this.jBtnStorm.setEnabled(true);        
     }
     
@@ -215,7 +222,7 @@ public class GameWindow extends javax.swing.JFrame {
 
 
     public void go() {
-
+    	
         gameEngine = GameEngine.getInstance();
         gameEngine.initialize();
 
@@ -229,9 +236,13 @@ public class GameWindow extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
+    	BasicConfigurator.configure();
+    	//to set later
+    	//logging.setLevel(Level.INFO);
+    	java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
+            	logging.info("Entering Application");
                 GameWindow gameWindow = new GameWindow();
                 gameWindow.setVisible(true);
 
@@ -252,4 +263,5 @@ public class GameWindow extends javax.swing.JFrame {
     private javax.swing.JProgressBar jPrgEnergy;
     private game.Renderer renderer;
     // End of variables declaration//GEN-END:variables
+	private static Logger log;
 }

@@ -6,10 +6,13 @@ import game.sprite.SpriteImage;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.apache.log4j.Logger;
+
 public abstract class Moveable extends Character
 {
-
-    protected boolean immune = false;
+	
+	static Logger logging = Logger.getLogger(Moveable.class);
+    protected boolean immune = false; //boolean that sets player to receive damage
     Renderer renderer = Renderer.getInstance();
 
     
@@ -27,34 +30,38 @@ public abstract class Moveable extends Character
         double h = (double) renderer.getHeight();
         double w = (double) renderer.getWidth();
 
-        double centreX = getSprite().getTransformedArea().getBounds().getCenterX();
+        @SuppressWarnings("unused")
+		double centreX = getSprite().getTransformedArea().getBounds().getCenterX();
         double centreY = getSprite().getTransformedArea().getBounds().getCenterY();
 
         double x = getLocation().getX();
         double y = getLocation().getY();
 
-        //if over right side
+//if over right side
         if (x > w)
         {
+        	logging.debug("right side hit");
             getLocation().setX(w - this.getUntransformedArea().getBounds2D().getWidth());
             hitEdge = true;
         }
 //if gone over bottom
         if (centreY > h)
         {
+        	logging.debug("bottom side hit");
             getLocation().setY(h - this.getUntransformedArea().getBounds2D().getHeight());
             hitEdge = true;
         }
 //if gone over left
         if (x < 0.0)
         {
+        	logging.debug("left side hit");
             getLocation().setX(0);
             hitEdge = true;
         }
 //if gone over top
         if (y < 0.0)
         {
-
+        	logging.debug("top side hit");
             getLocation().setY(0);
             hitEdge = true;
         }
@@ -68,25 +75,25 @@ public abstract class Moveable extends Character
 
         if (!immune)
         {
-            SpriteImage s = (SpriteImage) getSprite();
-            s.setFrame(1);
+            SpriteImage boatImage = (SpriteImage) getSprite();
+            boatImage.setFrame(1);
             immune = true;
-            Movement mb = getMoveBehaviour();
+            Movement moveAction = getMoveBehaviour();
             //getMoveBehaviour().angle+=(Math.random()-0.5);
-            mb.setAngularVelocity(mb.getAngularVelocity() + (Math.random() - 0.5) * 0.4);
-            mb.setAngle(mb.getAngle() + (Math.random() - 0.5) * 0.1);
-            mb.setVelocity(-mb.getVelocity() * (3.8 * Math.random()));
+            moveAction.setAngularVelocity(moveAction.getAngularVelocity() + (Math.random() - 0.5) * 0.4);
+            moveAction.setAngle(moveAction.getAngle() + (Math.random() - 0.5) * 0.1);
+            moveAction.setVelocity(-moveAction.getVelocity() * (3.8 * Math.random()));
 
-            if (mb.getVelocity() > mb.getMaxVelocity())
+            if (moveAction.getVelocity() > moveAction.getMaxVelocity())
             {
-                mb.setVelocity(mb.getMaxVelocity());
+                moveAction.setVelocity(moveAction.getMaxVelocity());
             }
 
-            if (mb.getVelocity() < -mb.getMaxVelocity())
+            if (moveAction.getVelocity() < -moveAction.getMaxVelocity())
             {
-                mb.setVelocity(-mb.getMaxVelocity());
+                moveAction.setVelocity(-moveAction.getMaxVelocity());
             }
-            Timer timer = new Timer();
+            Timer timer = new Timer(); // setting immunity time
             timer.schedule
 		  (new TimerTask()
                      {
@@ -94,8 +101,8 @@ public abstract class Moveable extends Character
                          @Override
                          public void run()
                          {
-                             SpriteImage s = (SpriteImage) getSprite();
-                             s.setFrame(0);
+                             SpriteImage boatImage = (SpriteImage) getSprite();
+                             boatImage.setFrame(0);
                              immune = false;
                          }
                      }

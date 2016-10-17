@@ -2,20 +2,27 @@ package game.movement;
 
 public class AngledAcceleration extends Movement {
 
-    private double angularAcceleration;
-    private double friction;
-    private double brake;
-    private double angularFriction;
+    private double angularAcceleration = 0;
+    private double friction = 0;
+    private double brake = 0;
+    private double angularFriction = 0;
 
     @Override
     public Location goUp(Location location) {
+    	/*
+    	 *get the velocity and the acceleration to determine the 
+         *new location of the object (if going forward)
+         */
         this.setVelocity(getVelocity() + getAcceleration());
         location = changedAccelerate(location);
         return location;
     }
 
     private Location changedAccelerate(Location location) {
-
+    	/*
+    	 *sets the velocity based on the acceleration to determine 
+    	 *the new location of the object (if theres no acceleration) 
+    	 */
         setXVelocity(Math.cos(getAngle()) * getVelocity());
         setYVelocity(Math.sin(getAngle()) * getVelocity());
 
@@ -25,7 +32,10 @@ public class AngledAcceleration extends Movement {
 
     @Override
     public Location goDown(Location location) {
-
+    	/*
+    	 *get the velocity and the acceleration to determine the 
+         *new location of the object (if going backwards)
+         */
         this.setVelocity(getVelocity() - getAcceleration());
         location = changedAccelerate(location);
         return location;
@@ -35,14 +45,17 @@ public class AngledAcceleration extends Movement {
     public Location turn(Location location) {
 
         double velocity = getVelocity();
-        double xVelocity;
-        double yVelocity;
+        double xVelocity = 0;
+        double yVelocity = 0;
 
         double angle = getAngle();
         double angularVelocity = getAngularVelocity();
         angle += angularVelocity;
         angle = clampAngle(angle);
-
+        
+        /*
+         * Changes the angle of the boat (if going left or right)
+         */
         xVelocity = Math.cos(angle) * velocity;
         yVelocity = Math.sin(angle) * velocity;
 
